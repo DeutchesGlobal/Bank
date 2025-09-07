@@ -1,0 +1,15 @@
+{
+  "name": "DeutscheGlobal Bank",
+  "short_name": "DGBank",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0b1220",
+  "icons": [
+    {
+      "src": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/svgs/solid/building.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ]
+}
