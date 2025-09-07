@@ -1,487 +1,1001 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>DeutscheGlobal Bank</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DeutscheGlobal Bank - Your trusted banking partner for modern financial solutions.">
+    <meta name="keywords" content="banking, finance, online banking, DeutscheGlobal Bank">
+    <meta name="author" content="DeutscheGlobal Bank">
+    <title>DeutscheGlobal Bank</title>
+    <link rel="icon" href="https://www.chase.com/etc/designs/chase-ux/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#003087">
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="data:application/manifest+json,{
+        'name': 'DeutscheGlobal Bank',
+        'short_name': 'DGBank',
+        'start_url': '/',
+        'display': 'standalone',
+        'background_color': '#ffffff',
+        'theme_color': '#003087',
+        'icons': [
+            {
+                'src': 'https://www.chase.com/etc/designs/chase-ux/favicon-144.png',
+                'sizes': '144x144',
+                'type': 'image/png'
+            }
+        ]
+    }">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
 
-<!-- PWA manifest -->
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0b1220" id="metaThemeColor">
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-<!-- Fonts & Icons -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
 
-<!-- =========================
-     STYLES (mobile-first, responsive)
-     ========================= -->
-<style>
-:root{
-  --bg:#0f1724; --card:#0b1220; --surface:#0b1220;
-  --primary:#2563eb; --accent:#10b981; --muted:#9aa7bd; --text:#e6eef8;
-  --danger:#ef4444; --radius:12px; --glass: rgba(255,255,255,0.03);
-  --shadow: 0 10px 30px rgba(2,6,23,0.6);
-  --transition: all .28s cubic-bezier(.2,.9,.2,1);
-}
-[data-theme="light"]{
-  --bg:#f7f9fc; --card:#ffffff; --surface:#fff; --primary:#2563eb; --text:#0b172a; --muted:#526174; --glass: rgba(2,6,23,0.02);
-}
+        /* Typography */
+        h1, h2, h3 {
+            font-weight: 600;
+            line-height: 1.2;
+        }
 
-/* Reset & base */
-*{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;background:linear-gradient(180deg,var(--bg),rgba(0,0,0,0));color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;-webkit-font-smoothing:antialiased}
-.container{max-width:1100px;margin:0 auto;padding:1rem}
+        a {
+            text-decoration: none;
+            color: #003087;
+        }
 
-/* Header */
-.header{position:sticky;top:0;z-index:60;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.02)}
-.header-inner{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1rem;gap:1rem}
-.brand{display:flex;align-items:center;gap:.75rem;cursor:pointer}
-.brand svg{width:44px;height:44px;transition:transform .45s}
-.brand:hover svg{transform:rotate(14deg)}
-.brand-title{font-weight:800;font-size:1rem}
-.nav{display:flex;gap:.45rem;align-items:center}
-.nav a{color:var(--muted);text-decoration:none;padding:.5rem .7rem;border-radius:9px;font-weight:700;font-size:.92rem}
-.nav a.active, .nav a:hover{background:var(--glass);color:var(--primary)}
-.header-actions{display:flex;gap:.5rem;align-items:center}
+        button {
+            cursor: pointer;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            background-color: #003087;
+            color: #fff;
+            font-size: 1rem;
+            transition: background-color 0.3s, transform 0.2s;
+        }
 
-/* Buttons */
-.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.6rem 1rem;border-radius:10px;border:0;cursor:pointer;font-weight:700;transition:var(--transition)}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--text)}
-.btn-primary{background:linear-gradient(90deg,var(--primary),#3b82f6);color:white;box-shadow:0 8px 26px rgba(37,99,235,0.12)}
+        button:hover {
+            background-color: #0052cc;
+            transform: translateY(-2px);
+        }
 
-/* Pages & layout */
-.page{display:none;padding:1rem 0 3rem}
-.page.active{display:block}
-.grid{display:grid;gap:1rem}
-.cols-3{grid-template-columns:repeat(3,1fr)}
-.card{background:var(--card);border-radius:12px;padding:1rem;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,0.03)}
-.small{font-size:.9rem;color:var(--muted)}
-.right{text-align:right}
+        /* Navbar */
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
 
-/* Hero */
-.hero{display:flex;gap:1rem;align-items:center;flex-direction:column;background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);padding:1rem;border-radius:12px}
-.hero-top{display:flex;gap:1rem;align-items:center;width:100%;justify-content:space-between}
+        body.dark-mode .navbar {
+            background-color: #2c2c2c;
+        }
 
-/* Forms */
-.input, select, textarea{width:100%;padding:.7rem;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--text);outline:none}
-.form-row{display:flex;gap:.6rem}
-.form-row .input{flex:1}
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
 
-/* Table */
-.table{width:100%;border-collapse:collapse}
-.table th,.table td{padding:.6rem;border-bottom:1px solid rgba(255,255,255,0.02);text-align:left}
+        .navbar .nav-links a {
+            margin-left: 1.5rem;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
 
-/* Chat + FAB */
-.chat-fab{position:fixed;right:1rem;bottom:1rem;background:linear-gradient(180deg,var(--primary),#3b82f6);width:56px;height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;color:white;box-shadow:0 12px 40px rgba(37,99,235,0.18);cursor:pointer;z-index:60}
-.chat-panel{position:fixed;right:1rem;bottom:5.8rem;width:360px;height:520px;border-radius:12px;background:var(--card);box-shadow:0 12px 40px rgba(2,6,23,0.3);overflow:hidden;display:none;flex-direction:column;z-index:60}
-.chat-panel.active{display:flex}
+        .navbar .nav-links a:hover {
+            color: #0052cc;
+        }
 
-/* Admin overlay */
-.admin-overlay{position:fixed;inset:0;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.9));display:none;align-items:center;justify-content:center;z-index:80}
-.admin-overlay.active{display:flex}
-.admin-panel{width:95%;max-width:1100px;height:85vh;background:var(--card);border-radius:12px;display:flex;overflow:hidden}
+        .theme-toggle {
+            background: none;
+            font-size: 1.2rem;
+        }
 
-/* Modals */
-.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:100}
-.modal-backdrop.active{display:flex}
-.modal{width:calc(100% - 40px);max-width:720px;background:var(--card);border-radius:12px;padding:1rem;box-shadow:0 18px 60px rgba(2,6,23,0.6)}
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #003087 0%, #0052cc 100%);
+            color: #fff;
+            text-align: center;
+            padding: 4rem 2rem;
+            animation: fadeIn 1s ease-in;
+        }
 
-/* Toast */
-.toast{position:fixed;top:1rem;right:1rem;padding:.8rem 1.2rem;border-radius:10px;color:#fff;font-weight:700;z-index:90;transform:translateX(120%);opacity:0;transition:all .25s}
-.toast.show{transform:translateX(0);opacity:1}
-.toast.success{background:var(--accent)} .toast.error{background:var(--danger)} .toast.info{background:var(--primary)}
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
 
-/* Responsive */
-@media(min-width:880px){
-  .hero{flex-direction:row;padding:1.2rem}
-  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
-}
-@media(max-width:879px){
-  .nav{display:none}
-  .grid.cols-3{grid-template-columns:1fr}
-  .chat-panel{width:320px;height:420px}
-}
-</style>
-<!-- ========================= END STYLES ========================= -->
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Services Section */
+        .services {
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: #fff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        body.dark-mode .service-card {
+            background: #2c2c2c;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Dashboard */
+        .dashboard {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .dashboard {
+            background: #2c2c2c;
+        }
+
+        .dashboard h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .account-overview, .transaction-history, .transfer-form, .investment-portfolio, .loan-calculator {
+            margin-bottom: 2rem;
+        }
+
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .transaction-table th, .transaction-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        body.dark-mode .transaction-table th,
+        body.dark-mode .transaction-table td {
+            border-bottom: 1px solid #444;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        body.dark-mode .admin-panel {
+            background: #2c2c2c;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        /* Chatbot */
+        .chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #003087;
+            color: #fff;
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        body.dark-mode .chatbot-window {
+            background: #2c2c2c;
+        }
+
+        .chatbot-window.active {
+            display: block;
+        }
+
+        .chatbot-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 1rem;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+
+        body.dark-mode .chatbot-input input {
+            background: #333;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+
+        /* Footer */
+        .footer {
+            background: #003087;
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .footer a {
+            color: #fff;
+            margin: 0 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .navbar .nav-links {
+                margin-top: 1rem;
+            }
+
+            .navbar .nav-links a {
+                margin-left: 0;
+                margin-right: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+        }
+
+        body.dark-mode .skeleton {
+            background: linear-gradient(90deg, #333 25%, #444 50%, #333 75%);
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Accessibility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
 </head>
-<body data-theme="dark" aria-live="polite">
-
-<!-- HEADER -->
-<header class="header" role="banner" aria-label="Main header">
-  <div class="container header-inner">
-    <div style="display:flex;align-items:center;gap:.8rem">
-      <a class="brand" id="brandLogo" aria-label="Open admin access">
-        <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
-          <defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
-          <rect width="64" height="64" rx="10" fill="url(#lg)"/>
-          <path d="M18 40c0-11 10-18 14-18s14 7 14 18v8H18v-8z" fill="#fff" opacity="0.08"/>
-        </svg>
-      </a>
-      <div>
-        <div class="brand-title">DeutscheGlobal Bank</div>
-        <div class="small" style="margin-top:2px">Secure • Global • Fast</div>
-      </div>
-    </div>
-
-    <nav class="nav" role="navigation" aria-label="Main navigation">
-      <a href="#" data-page="home" class="active">Home</a>
-      <a href="#" data-page="accounts">Accounts</a>
-      <a href="#" data-page="invest">Invest</a>
-      <a href="#" data-page="support">Support</a>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" aria-label="Main navigation">
+        <div class="logo" onclick="handleLogoClick()">DeutscheGlobal Bank</div>
+        <div class="nav-links">
+            <a href="#home" aria-label="Home">Home</a>
+            <a href="#services" aria-label="Services">Services</a>
+            <a href="#dashboard" id="dashboard-link" style="display: none;" aria-label="Dashboard">Dashboard</a>
+            <a href="#contact" aria-label="Contact">Contact</a>
+            <select id="language-select" aria-label="Select language">
+                <option value="en">English</option>
+                <option value="de">Deutsch</option>
+                <option value="fr">Français</option>
+                <option value="es">Español</option>
+                <option value="it">Italiano</option>
+            </select>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+            <button onclick="showLogin()" aria-label="Sign in">Sign In</button>
+        </div>
     </nav>
 
-    <div class="header-actions" role="toolbar" aria-label="Header actions">
-      <select id="languageSelect" aria-label="Language" title="Language" style="padding:.45rem;border-radius:8px;background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.03)">
-        <option value="en">EN</option>
-        <option value="de">DE</option>
-        <option value="fr">FR</option>
-        <option value="es">ES</option>
-        <option value="it">IT</option>
-      </select>
-      <button class="btn btn-ghost" id="themeToggle" aria-pressed="false" title="Toggle theme"><i class="fa fa-moon"></i></button>
-      <button class="btn btn-ghost" data-page="login" id="authBtn">Sign in</button>
-      <button class="btn btn-primary" data-page="register" id="getStarted">Open account</button>
-    </div>
-  </div>
-</header>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <h1>Welcome to DeutscheGlobal Bank</h1>
+        <p>Your trusted partner for modern banking solutions.</p>
+        <button onclick="showRegister()" aria-label="Open an account">Open an Account</button>
+    </section>
 
-<main class="container" role="main">
-
-  <!-- HOME PAGE -->
-  <section id="home" class="page active" aria-labelledby="homeTitle">
-    <div class="hero card" role="region" aria-label="Welcome">
-      <div style="flex:1">
-        <h1 id="homeTitle" style="margin:0;font-size:1.2rem">Banking for a connected world</h1>
-        <p class="small" style="margin-top:.5rem">Manage accounts, transfer funds, apply for loans, and monitor investments — all in one responsive banking app.</p>
-        <div style="margin-top:1rem;display:flex;gap:.6rem;flex-wrap:wrap">
-          <button class="btn btn-primary" id="openDashboard">Go to dashboard</button>
-          <button class="btn btn-ghost" data-page="services">Explore services</button>
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="service-card">
+            <h3>Checking Accounts</h3>
+            <p>Manage your daily finances with ease and flexibility.</p>
         </div>
-      </div>
-
-      <div style="width:320px;max-width:48%">
-        <div class="card" style="margin-bottom:.8rem">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div class="small">Total balance</div>
-            <div class="right small">Accounts: <span id="acctCount">0</span></div>
-          </div>
-          <div style="font-weight:800;font-size:1.6rem;margin-top:.6rem">$<span id="totalBalance">0.00</span></div>
+        <div class="service-card">
+            <h3>Savings Accounts</h3>
+            <p>Grow your savings with competitive interest rates.</p>
         </div>
-
-        <div class="card">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div class="small">Exchange rates (USD base)</div>
-            <button class="btn btn-ghost small" id="refreshFx">Refresh</button>
-          </div>
-          <div class="small" id="fxRates" style="margin-top:.6rem">Loading rates...</div>
+        <div class="service-card">
+            <h3>Investments</h3>
+            <p>Build your wealth with our investment solutions.</p>
         </div>
-      </div>
+        <div class="service-card">
+            <h3>Loans</h3>
+            <p>Flexible loan options for your personal and business needs.</p>
+        </div>
+    </section>
+
+    <!-- Authentication Modals -->
+    <div id="login-modal" style="display: none;" role="dialog" aria-labelledby="login-title">
+        <div style="background: #fff; padding: 2rem; border-radius: 8px; max-width: 400px; margin: 5rem auto;">
+            <h2 id="login-title">Sign In</h2>
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <label for="username">Username</label>
+                <input type="text" id="username" required aria-required="true">
+                <label for="password">Password</label>
+                <input type="password" id="password" required aria-required="true">
+                <label><input type="checkbox" id="use-2fa"> Enable 2FA</label>
+                <button type="submit">Sign In</button>
+                <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+            </form>
+        </div>
     </div>
 
-    <div style="margin-top:1rem" class="grid cols-3">
-      <div class="card">
-        <h3 style="margin:0">Transfers</h3>
-        <p class="small">Send funds locally or internationally.</p>
-        <label class="small">From</label>
-        <select id="transferFrom" class="input"></select>
-        <label class="small" style="margin-top:.4rem">To (IBAN / Account)</label>
-        <input id="transferTo" class="input" placeholder="Recipient IBAN or account"/>
-        <label class="small" style="margin-top:.4rem">Amount (USD)</label>
-        <input id="transferAmount" type="number" class="input" placeholder="0.00"/>
-        <div style="display:flex;gap:.5rem;margin-top:.6rem">
-          <button class="btn btn-primary" id="sendTransfer">Send</button>
-          <button class="btn btn-ghost" id="queueTransfer">Queue for approval</button>
+    <div id="register-modal" style="display: none;" role="dialog" aria-labelledby="register-title">
+        <div style="background: #fff; padding: 2rem; border-radius: 8px; max-width: 400px; margin: 5rem auto;">
+            <h2 id="register-title">Register</h2>
+            <form id="register-form" onsubmit="handleRegister(event)">
+                <label for="reg-username">Username</label>
+                <input type="text" id="reg-username" required aria-required="true">
+                <label for="reg-email">Email</label>
+                <input type="email" id="reg-email" required aria-required="true">
+                <label for="reg-password">Password</label>
+                <input type="password" id="reg-password" required aria-required="true">
+                <button type="submit">Register</button>
+            </form>
         </div>
-      </div>
-
-      <div class="card">
-        <h3 style="margin:0">Investments</h3>
-        <p class="small">Manage your portfolio and view tickers.</p>
-        <div style="margin-top:.6rem">
-          <div class="small">Portfolio value</div>
-          <div style="font-weight:800">$<span id="portfolioValue">0.00</span></div>
-          <div style="margin-top:.6rem" id="stockTicker" class="small">Loading markets...</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3 style="margin:0">Loans</h3>
-        <p class="small">Estimate monthly payments.</p>
-        <label class="small">Amount (USD)</label>
-        <input id="loanAmount" class="input" type="number" />
-        <label class="small" style="margin-top:.4rem">Term (months)</label>
-        <input id="loanTerm" class="input" type="number" value="36"/>
-        <div style="margin-top:.6rem;display:flex;gap:.5rem">
-          <button class="btn btn-primary" id="calcLoan">Calculate</button>
-          <button class="btn btn-ghost" id="applyLoan">Apply</button>
-        </div>
-        <div id="loanResult" class="small" style="margin-top:.6rem">Monthly: -</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ACCOUNTS PAGE -->
-  <section id="accounts" class="page" aria-labelledby="accountsTitle">
-    <h2 id="accountsTitle">Accounts</h2>
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div>
-          <div class="small">Primary account</div>
-          <div style="font-weight:800">$<span id="primaryBalance">0.00</span></div>
-        </div>
-        <div>
-          <button class="btn btn-primary" id="downloadStatement">Download statement</button>
-        </div>
-      </div>
-      <div style="margin-top:.8rem">
-        <h4 class="small">Transaction history</h4>
-        <table class="table" id="txTable">
-          <thead><tr><th>Date</th><th>Description</th><th class="right">Amount</th></tr></thead>
-          <tbody id="txBody"></tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- INVEST PAGE -->
-  <section id="invest" class="page" aria-labelledby="investTitle">
-    <h2 id="investTitle">Investments</h2>
-    <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div>
-          <div class="small">Portfolio overview</div>
-          <div style="font-weight:800">$<span id="pv">0.00</span></div>
-        </div>
-        <div>
-          <button class="btn btn-primary" id="tradeBtn">Trade</button>
-        </div>
-      </div>
-      <div style="margin-top:.8rem" id="portfolioList"></div>
-    </div>
-  </section>
-
-  <!-- SUPPORT PAGE -->
-  <section id="support" class="page" aria-labelledby="supportTitle">
-    <h2 id="supportTitle">Support</h2>
-    <div class="card">
-      <div>
-        <h4 class="small">Contact support</h4>
-        <textarea id="supportMsg" class="input" rows="3" placeholder="Describe your issue..."></textarea>
-        <div style="display:flex;gap:.6rem;margin-top:.6rem">
-          <button class="btn btn-primary" id="sendSupport">Send</button>
-          <button class="btn btn-ghost" id="startCall">Start video call</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- AUTH: LOGIN -->
-  <section id="login" class="page" aria-labelledby="loginTitle">
-    <div class="card" style="max-width:640px;margin:0 auto">
-      <h2 id="loginTitle">Sign in</h2>
-      <form id="loginForm" autocomplete="on">
-        <label class="small">Email</label>
-        <input id="loginEmail" class="input" type="email" required />
-        <label class="small" style="margin-top:.6rem">Password</label>
-        <input id="loginPass" class="input" type="password" required />
-        <div style="display:flex;gap:.6rem;margin-top:.8rem">
-          <button class="btn btn-primary" type="submit">Sign in</button>
-          <button class="btn btn-ghost" type="button" id="forgotPwd">Forgot?</button>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <!-- AUTH: REGISTER -->
-  <section id="register" class="page" aria-labelledby="registerTitle">
-    <div class="card" style="max-width:640px;margin:0 auto">
-      <h2 id="registerTitle">Open an account</h2>
-      <form id="registerForm" autocomplete="on">
-        <div class="form-row">
-          <input id="regFirst" class="input" placeholder="First name" required />
-          <input id="regLast" class="input" placeholder="Last name" required />
-        </div>
-        <label class="small" style="margin-top:.6rem">Email</label>
-        <input id="regEmail" class="input" type="email" required />
-        <label class="small" style="margin-top:.6rem">Create password</label>
-        <input id="regPass" class="input" type="password" required />
-        <div style="display:flex;gap:.6rem;margin-top:.8rem">
-          <button class="btn btn-primary" type="submit">Create account</button>
-        </div>
-      </form>
-    </div>
-  </section>
-
-  <!-- DASHBOARD (personalized) -->
-  <section id="dashboard" class="page" aria-labelledby="dashboardTitle">
-    <h2 id="dashboardTitle">Dashboard</h2>
-    <div class="grid cols-3">
-      <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div><div class="small">Account</div><div style="font-weight:800" id="dashName">—</div></div>
-          <div class="right"><div class="small">Available</div><div style="font-weight:800">$<span id="dashBalance">0.00</span></div></div>
-        </div>
-        <div style="margin-top:.8rem;display:flex;gap:.5rem">
-          <button class="btn btn-primary" id="quickTransfer">Transfer</button>
-          <button class="btn btn-ghost" id="quickInvest">Invest</button>
-        </div>
-      </div>
-      <div class="card">
-        <h4 class="small">Recent transactions</h4>
-        <table class="table"><thead><tr><th>Date</th><th>Description</th><th class="right">Amount</th></tr></thead>
-        <tbody id="recentTx"></tbody></table>
-      </div>
-      <div class="card">
-        <h4 class="small">Analytics</h4>
-        <div class="small">KPIs and charts are available within admin analytics.</div>
-      </div>
     </div>
 
-    <div style="margin-top:1rem" class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div class="small">Statements & receipts</div>
-        <div style="display:flex;gap:.6rem">
-          <button class="btn btn-ghost" id="exportJson">Export data</button>
-          <button class="btn btn-primary" id="printStatement">Print statement</button>
+    <div id="forgot-password-modal" style="display: none;" role="dialog" aria-labelledby="forgot-password-title">
+        <div style="background: #fff; padding: 2rem; border-radius: 8px; max-width: 400px; margin: 5rem auto;">
+            <h2 id="forgot-password-title">Reset Password</h2>
+            <form id="forgot-password-form" onsubmit="handleForgotPassword(event)">
+                <label for="reset-email">Email</label>
+                <input type="email" id="reset-email" required aria-required="true">
+                <button type="submit">Send Reset Link</button>
+            </form>
         </div>
-      </div>
     </div>
-  </section>
 
-</main>
+    <!-- Dashboard -->
+    <section id="dashboard" class="dashboard" style="display: none;">
+        <h2>Dashboard</h2>
+        <div class="account-overview">
+            <h3>Account Overview</h3>
+            <p id="account-balance">Balance: €0.00</p>
+        </div>
+        <div class="transaction-history">
+            <h3>Transaction History</h3>
+            <table class="transaction-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="transaction-table-body"></tbody>
+            </table>
+        </div>
+        <div class="transfer-form">
+            <h3>Transfer Money</h3>
+            <form id="transfer-form" onsubmit="handleTransfer(event)">
+                <label for="transfer-to">Recipient Account</label>
+                <input type="text" id="transfer-to" required aria-required="true">
+                <label for="transfer-amount">Amount (€)</label>
+                <input type="number" id="transfer-amount" step="0.01" required aria-required="true">
+                <button type="submit">Transfer</button>
+            </form>
+        </div>
+        <div class="investment-portfolio">
+            <h3>Investment Portfolio</h3>
+            <div id="investment-data"></div>
+        </div>
+        <div class="loan-calculator">
+            <h3>Loan Calculator</h3>
+            <form id="loan-form" onsubmit="calculateLoan(event)">
+                <label for="loan-amount">Loan Amount (€)</label>
+                <input type="number" id="loan-amount" required aria-required="true">
+                <label for="loan-term">Term (months)</label>
+                <input type="number" id="loan-term" required aria-required="true">
+                <label for="loan-rate">Interest Rate (%)</label>
+                <input type="number" id="loan-rate" step="0.1" required aria-required="true">
+                <button type="submit">Calculate</button>
+            </form>
+            <p id="loan-result"></p>
+        </div>
+        <div class="branch-locator">
+            <h3>Branch Locator</h3>
+            <div id="map" style="height: 300px; background: #ddd;"></div>
+        </div>
+    </section>
 
-<!-- Chat floating -->
-<button class="chat-fab" id="chatFab" aria-label="Open support chat"><i class="fa fa-comments"></i></button>
-<div class="chat-panel card" id="chatPanel" role="dialog" aria-hidden="true">
-  <div style="padding:.8rem;background:linear-gradient(90deg,var(--primary),#3b82f6);color:white;display:flex;justify-content:space-between;align-items:center">
-    <div><i class="fa fa-headset"></i> Support</div>
-    <button class="btn btn-ghost" id="closeChat"><i class="fa fa-times"></i></button>
-  </div>
-  <div id="chatLog" style="flex:1;padding:1rem;overflow:auto"></div>
-  <div style="padding:.8rem;display:flex;gap:.6rem">
-    <input id="chatInput" class="input" placeholder="Type your message" aria-label="Chat input"/>
-    <button class="btn btn-primary" id="sendChat">Send</button>
-  </div>
-</div>
+    <!-- Admin Panel -->
+    <section id="admin-panel" class="admin-panel">
+        <h2>Admin Panel</h2>
+        <div class="admin-users">
+            <h3>User Management</h3>
+            <table class="transaction-table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-users-table"></tbody>
+            </table>
+        </div>
+        <div class="admin-transactions">
+            <h3>Transaction Approval</h3>
+            <table class="transaction-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-transactions-table"></tbody>
+            </table>
+        </div>
+        <div class="admin-analytics">
+            <h3>Analytics</h3>
+            <div id="analytics-chart"></div>
+        </div>
+    </section>
 
-<!-- Admin overlay -->
-<div class="admin-overlay" id="adminOverlay" aria-hidden="true">
-  <div class="admin-panel" role="dialog">
-    <div style="width:260px;padding:1rem;border-right:1px solid rgba(255,255,255,0.02);background:linear-gradient(180deg,rgba(37,99,235,0.03),transparent)">
-      <h3>Admin</h3>
-      <div style="display:flex;flex-direction:column;gap:.6rem">
-        <button class="btn btn-ghost" data-admin="overview">Overview</button>
-        <button class="btn btn-ghost" data-admin="users">Users</button>
-        <button class="btn btn-ghost" data-admin="tx">Transactions</button>
-        <button class="btn btn-ghost" id="closeAdmin">Close</button>
-      </div>
+    <!-- Chatbot -->
+    <div class="chatbot" onclick="toggleChatbot()" aria-label="Open chatbot">💬</div>
+    <div class="chatbot-window" id="chatbot-window">
+        <div class="chatbot-messages" id="chatbot-messages"></div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbot-input" placeholder="Ask a question..." aria-label="Chatbot input">
+            <button onclick="sendChatbotMessage()">Send</button>
+        </div>
     </div>
-    <div style="flex:1;padding:1rem;overflow:auto" id="adminMain">
-      <h3 id="adminTitle">System Overview</h3>
-      <div id="adminContent"></div>
-    </div>
-  </div>
-</div>
 
-<!-- Modal backdrop -->
-<div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
-  <div class="modal" role="dialog" id="modalBox"></div>
-</div>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 DeutscheGlobal Bank. All rights reserved.</p>
+        <a href="#privacy" aria-label="Privacy Policy">Privacy Policy</a>
+        <a href="#terms" aria-label="Terms of Service">Terms of Service</a>
+        <a href="#contact" aria-label="Contact Us">Contact Us</a>
+    </footer>
 
-<!-- Toast area -->
-<div id="toast" class="toast toast.info" role="status" aria-live="polite"></div>
+    <script>
+        // Mock Database
+        const db = {
+            users: [
+                { id: 1, username: 'user1', email: 'user1@example.com', password: 'password123', role: 'user', status: 'active', balance: 5000 },
+                { id: 2, username: 'admin', email: 'admin@example.com', password: 'admin111', role: 'admin', status: 'active', balance: 10000 }
+            ],
+            transactions: [
+                { id: 1, userId: 1, date: '2025-09-01', description: 'Salary', amount: 2000, status: 'completed' },
+                { id: 2, userId: 1, date: '2025-09-02', description: 'Utility Bill', amount: -150, status: 'completed' }
+            ],
+            investments: [
+                { symbol: 'AAPL', shares: 10, price: 150, userId: 1 },
+                { symbol: 'GOOGL', shares: 5, price: 2800, userId: 1 }
+            ],
+            loans: [
+                { id: 1, userId: 1, amount: 10000, term: 36, rate: 5, status: 'pending' }
+            ]
+        };
 
-<!-- =========================
-     SCRIPTS (app logic)
-     ========================= -->
-<script>
-/* =========================
-   CONFIG
-   ========================= */
-const CONFIG = {
-  SUPER_ADMIN_PASSWORD: 'admin/admin111',
-  FX_API: 'https://api.exchangerate.host/latest?base=USD&symbols=EUR,GBP,NGN'
-};
+        // IndexedDB Setup
+        let idb;
+        const request = indexedDB.open('DGBankDB', 1);
+        request.onupgradeneeded = (event) => {
+            idb = event.target.result;
+            idb.createObjectStore('users', { keyPath: 'id' });
+            idb.createObjectStore('transactions', { keyPath: 'id' });
+            idb.createObjectStore('investments', { keyPath: 'symbol' });
+            idb.createObjectStore('loans', { keyPath: 'id' });
+        };
+        request.onsuccess = (event) => {
+            idb = event.target.result;
+            syncData();
+        };
 
-/* =========================
-   UTILITIES
-   ========================= */
-const UI = {
-  toastEl: document.getElementById('toast'),
-  showToast(msg, type='info', ms=3500){
-    this.toastEl.textContent = msg;
-    this.toastEl.className = 'toast show ' + (type==='success' ? 'toast success' : type==='error' ? 'toast error' : 'toast info');
-    setTimeout(()=>{ this.toastEl.className = 'toast'; }, ms);
-  },
-  openModal(html){
-    document.getElementById('modalBox').innerHTML = html;
-    document.getElementById('modalBackdrop').classList.add('active');
-    document.getElementById('modalBackdrop').setAttribute('aria-hidden','false');
-  },
-  closeModal(){
-    document.getElementById('modalBackdrop').classList.remove('active');
-    document.getElementById('modalBackdrop').setAttribute('aria-hidden','true');
-    document.getElementById('modalBox').innerHTML = '';
-  }
-};
+        // State Management
+        let state = {
+            user: null,
+            isAdmin: false,
+            language: 'en',
+            theme: 'light',
+            logoClicks: 0
+        };
 
-function fmt(num){ return Number(num||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); }
+        // Language Translations
+        const translations = {
+            en: {
+                welcome: 'Welcome to DeutscheGlobal Bank',
+                dashboard: 'Dashboard',
+                signIn: 'Sign In',
+                openAccount: 'Open an Account'
+            },
+            de: {
+                welcome: 'Willkommen bei DeutscheGlobal Bank',
+                dashboard: 'Armaturenbrett',
+                signIn: 'Einloggen',
+                openAccount: 'Konto eröffnen'
+            },
+            fr: {
+                welcome: 'Bienvenue à DeutscheGlobal Bank',
+                dashboard: 'Tableau de bord',
+                signIn: 'Se connecter',
+                openAccount: 'Ouvrir un compte'
+            },
+            es: {
+                welcome: 'Bienvenido a DeutscheGlobal Bank',
+                dashboard: 'Tablero',
+                signIn: 'Iniciar sesión',
+                openAccount: 'Abrir una cuenta'
+            },
+            it: {
+                welcome: 'Benvenuto in DeutscheGlobal Bank',
+                dashboard: 'Cruscotto',
+                signIn: 'Accedi',
+                openAccount: 'Apri un conto'
+            }
+        };
 
-/* =========================
-   INDEXEDDB: persistence layer
-   =========================
-   Stores:
-     - users
-     - accounts
-     - transactions
-     - loans
-     - investments
-     - auditlogs
-     - settings
-*/
-const DB = (function(){
-  const DBNAME = 'deutscheglobal_v1', VERSION = 1, stores = ['users','accounts','transactions','loans','investments','auditlogs','settings'];
-  let db;
-  function open(){
-    return new Promise((res,rej)=>{
-      const rq = indexedDB.open(DBNAME, VERSION);
-      rq.onupgradeneeded = (e) => {
-        db = e.target.result;
-        for(const s of stores) if(!db.objectStoreNames.contains(s)) db.createObjectStore(s, {keyPath:'id',autoIncrement:true});
-      };
-      rq.onsuccess = ()=>{ db = rq.result; res(db); };
-      rq.onerror = ()=>rej(rq.error);
-    });
-  }
-  async function tx(store, mode='readonly'){ await open(); return db.transaction(store, mode).objectStore(store); }
-  async function add(store, obj){ const s = await tx(store,'readwrite'); return new Promise((res,rej)=>{ const r = s.add(obj); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
-  async function put(store, obj){ const s = await tx(store,'readwrite'); return new Promise((res,rej)=>{ const r = s.put(obj); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
-  async function getAll(store){ const s = await tx(store); return new Promise((res,rej)=>{ const r = s.getAll(); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
-  async function getById(store, id){ const s = await tx(store); return new Promise((res,rej)=>{ const r = s.get(id); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
-  async function clear(store){ const s = await tx(store,'readwrite'); return new Promise((res,rej)=>{ const r = s.clear(); r.onsuccess=()=>res(); r.onerror=()=>rej(r.error); }); }
-  return { open, add, put, getAll, getById, clear };
-})();
+        // Helper Functions
+        function syncData() {
+            const tx = idb.transaction(['users', 'transactions', 'investments', 'loans'], 'readwrite');
+            const userStore = tx.objectStore('users');
+            const transactionStore = tx.objectStore('transactions');
+            const investmentStore = tx.objectStore('investments');
+            const loanStore = tx.objectStore('loans');
 
-/* =========================
-   AUDIT & ANTI-FRAUD (simple)
-   ========================= */
-const Audit = {
-  async log(type, detail){
-    await DB.add('auditlogs', {type,detail,date:new Date().toISOString()});
-    // Example anti-fraud: flag transfers over 50k
-    if(type==='transaction' && typeof detail === 'object' && Math.abs(detail.amount) > 50000){
-      UI.showToast('High-value transaction flagged for review', 'info');
-    }
-  }
-};
+            db.users.forEach(user => userStore.put(user));
+            db.transactions.forEach(tx => transactionStore.put(tx));
+            db.investments.forEach(inv => investmentStore.put(inv));
+            db.loans.forEach(loan => loanStore.put(loan));
+        }
 
-/* =========================
-   BOOTSTRAP: create initial admin user & seed basic settings if not present
-   - Note: passwords are stored base64 here ONLY for client-side simulation.
-   - For production, move auth to server and use secure hashing (bcrypt/argon2).
-*/
-(async function bootstrap(){
-  try{
-    await DB.open();
-    const users
+        function updateUI() {
+            document.querySelector('.hero h1').textContent = translations[state.language].welcome;
+            document.querySelector('#dashboard-link').textContent = translations[state.language].dashboard;
+            document.querySelector('.nav-links button[aria-label="Sign in"]').textContent = translations[state.language].signIn;
+            document.querySelector('.hero button').textContent = translations[state.language].openAccount;
+
+            if (state.user) {
+                document.querySelector('#dashboard').style.display = 'block';
+                document.querySelector('#dashboard-link').style.display = 'inline';
+                updateDashboard();
+                if (state.isAdmin) {
+                    document.querySelector('#admin-panel').classList.add('active');
+                    updateAdminPanel();
+                }
+            } else {
+                document.querySelector('#dashboard').style.display = 'none';
+                document.querySelector('#dashboard-link').style.display = 'none';
+                document.querySelector('#admin-panel').classList.remove('active');
+            }
+        }
+
+        function toggleTheme() {
+            state.theme = state.theme === 'light' ? 'dark' : 'light';
+            document.body.classList.toggle('dark-mode', state.theme === 'dark');
+            localStorage.setItem('theme', state.theme);
+        }
+
+        function handleLogoClick() {
+            state.logoClicks++;
+            if (state.logoClicks === 3) {
+                const password = prompt('Enter admin password:');
+                if (password === 'admin111' && state.user?.username === 'admin') {
+                    state.isAdmin = true;
+                    updateUI();
+                }
+                state.logoClicks = 0;
+            }
+        }
+
+        function showLogin() {
+            document.querySelector('#login-modal').style.display = 'block';
+        }
+
+        function showRegister() {
+            document.querySelector('#register-modal').style.display = 'block';
+        }
+
+        function showForgotPassword() {
+            document.querySelector('#login-modal').style.display = 'none';
+            document.querySelector('#forgot-password-modal').style.display = 'block';
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.querySelector('#username').value;
+            const password = document.querySelector('#password').value;
+            const use2FA = document.querySelector('#use-2fa').checked;
+
+            const user = db.users.find(u => u.username === username && u.password === password);
+            if (user) {
+                if (use2FA) {
+                    const code = prompt('Enter 2FA code:');
+                    if (!code) {
+                        alert('2FA code required');
+                        return;
+                    }
+                }
+                state.user = user;
+                state.isAdmin = user.role === 'admin';
+                document.querySelector('#login-modal').style.display = 'none';
+                updateUI();
+                logAction('login', `User ${username} logged in`);
+            } else {
+                alert('Invalid credentials');
+            }
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const username = document.querySelector('#reg-username').value;
+            const email = document.querySelector('#reg-email').value;
+            const password = document.querySelector('#reg-password').value;
+
+            if (db.users.find(u => u.username === username || u.email === email)) {
+                alert('Username or email already exists');
+                return;
+            }
+
+            const newUser = {
+                id: db.users.length + 1,
+                username,
+                email,
+                password,
+                role: 'user',
+                status: 'active',
+                balance: 0
+            };
+            db.users.push(newUser);
+            syncData();
+            sendEmailNotification(email, 'Welcome to DeutscheGlobal Bank', 'Your account has been created.');
+            document.querySelector('#register-modal').style.display = 'none';
+            alert('Registration successful! Please sign in.');
+            logAction('register', `User ${username} registered`);
+        }
+
+        function handleForgotPassword(event) {
+            event.preventDefault();
+            const email = document.querySelector('#reset-email').value;
+            sendEmailNotification(email, 'Password Reset', 'Follow this link to reset your password.');
+            document.querySelector('#forgot-password-modal').style.display = 'none';
+            alert('Password reset link sent');
+            logAction('forgot-password', `Password reset requested for ${email}`);
+        }
+
+        function handleTransfer(event) {
+            event.preventDefault();
+            const to = document.querySelector('#transfer-to').value;
+            const amount = parseFloat(document.querySelector('#transfer-amount').value);
+
+            if (!state.user || amount > state.user.balance) {
+                alert('Insufficient funds or not logged in');
+                return;
+            }
+
+            const transaction = {
+                id: db.transactions.length + 1,
+                userId: state.user.id,
+                date: new Date().toISOString().split('T')[0],
+                description: `Transfer to ${to}`,
+                amount: -amount,
+                status: state.isAdmin ? 'completed' : 'pending'
+            };
+            db.transactions.push(transaction);
+            state.user.balance -= amount;
+            syncData();
+            updateDashboard();
+            if (!state.isAdmin) {
+                sendAdminNotification('New Transaction', `Transaction of €${amount} to ${to} needs approval`);
+            }
+            logAction('transfer', `Transfer of €${amount} to ${to}`);
+            alert('Transfer submitted');
+        }
+
+        function calculateLoan(event) {
+            event.preventDefault();
+            const amount = parseFloat(document.querySelector('#loan-amount').value);
+            const term = parseInt(document.querySelector('#loan-term').value);
+            const rate = parseFloat(document.querySelector('#loan-rate').value) / 100;
+
+            const monthlyRate = rate / 12;
+            const payment = (amount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -term));
+            document.querySelector('#loan-result').textContent = `Monthly Payment: €${payment.toFixed(2)}`;
+            logAction('loan-calculation', `Loan calculated: €${amount}, ${term} months, ${rate}%`);
+        }
+
+        function updateDashboard() {
+            if (!state.user) return;
+            document.querySelector('#account-balance').textContent = `Balance: €${state.user.balance.toFixed(2)}`;
+
+            const transactionBody = document.querySelector('#transaction-table-body');
+            transactionBody.innerHTML = '';
+            db.transactions
+                .filter(t => t.userId === state.user.id)
+                .forEach(t => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${t.date}</td>
+                        <td>${t.description}</td>
+                        <td>€${t.amount.toFixed(2)}</td>
+                        <td>${t.status}</td>
+                    `;
+                    transactionBody.appendChild(row);
+                });
+
+            const investmentData = document.querySelector('#investment-data');
+            investmentData.innerHTML = '';
+            db.investments
+                .filter(i => i.userId === state.user.id)
+                .forEach(i => {
+                    const div = document.createElement('div');
+                    div.textContent = `${i.symbol}: ${i.shares} shares @ €${i.price.toFixed(2)}`;
+                    investmentData.appendChild(div);
+                });
+        }
+
+        function updateAdminPanel() {
+            const userTable = document.querySelector('#admin-users-table');
+            userTable.innerHTML = '';
+            db.users.forEach(u => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${u.username}</td>
+                    <td>${u.email}</td>
+                    <td>${u.status}</td>
+                    <td>
+                        <button onclick="toggleUserStatus(${u.id})">${u.status === 'active' ? 'Freeze' : 'Activate'}</button>
+                        <button onclick="deleteUser(${u.id})">Delete</button>
+                    </td>
+                `;
+                userTable.appendChild(row);
+            });
+
+            const transactionTable = document.querySelector('#admin-transactions-table');
+            transactionTable.innerHTML = '';
+            db.transactions.forEach(t => {
+                if (t.status === 'pending') {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${t.date}</td>
+                        <td>${db.users.find(u => u.id === t.userId)?.username}</td>
+                        <td>${t.description.split(' to ')[1]}</td>
+                        <td>€${t.amount.toFixed(2)}</td>
+                        <td>${t.status}</td>
+                        <td>
+                            <button onclick="approveTransaction(${t.id})">Approve</button>
+                            <button onclick="rejectTransaction(${t.id})">Reject</button>
+                        </td>
+                    `;
+                    transactionTable.appendChild(row);
+                }
+            });
+        }
+
+        function toggleUserStatus(userId) {
+            const user = db.users.find(u => u.id === userId);
+            user.status = user.status === 'active' ? 'frozen' : 'active';
+            syncData();
+            updateAdminPanel();
+            logAction('user-status', `User ${user.username} status changed to ${user.status}`);
+        }
+
+        function deleteUser(userId) {
+            db.users = db.users.filter(u => u.id !== userId);
+            syncData();
+            updateAdminPanel();
+            logAction('user-delete', `User ${userId} deleted`);
+        }
+
+        function approveTransaction(transactionId) {
+            const transaction = db.transactions.find(t => t.id === transactionId);
+            transaction.status = 'completed';
+            syncData();
+            updateAdminPanel();
+            updateDashboard();
+            logAction('transaction-approve', `Transaction ${transactionId} approved`);
+        }
+
+        function rejectTransaction(transactionId) {
+            db.transactions = db.transactions.filter(t => t.id !== transactionId);
+            syncData();
+            updateAdminPanel();
+            updateDashboard();
+            logAction('transaction-reject', `Transaction ${transactionId} rejected`);
+        }
+
+        // Chatbot Logic
+        function toggleChatbot() {
+            const chatbotWindow = document.querySelector('#chatbot-window');
+            chatbotWindow.classList.toggle('active');
+        }
+
+        function sendChatbotMessage() {
+            const input = document.querySelector('#chatbot-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const messages = document.querySelector('#chatbot-messages');
+            const userMessage = document.createElement('div');
+            userMessage.textContent = `You: ${message}`;
+            messages.appendChild(userMessage);
+
+            // Simple AI response simulation
+            const response = getChatbotResponse(message);
+            const botMessage = document.createElement('div');
+            botMessage.textContent = `Bot: ${response}`;
+            messages.appendChild(botMessage);
+
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+            logAction('chatbot', `User sent message: ${message}`);
+        }
+
+        function getChatbotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            if (lowerMessage.includes('balance')) return 'Please log in to view your balance.';
+            if (lowerMessage.includes('transfer')) return 'You can transfer money from the dashboard.';
+            return 'How can I assist you today?';
+        }
+
+        // Email Notification Simulation
+        function sendEmailNotification(to, subject, body) {
+            console.log(`Email sent to ${to}: Subject: ${subject}, Body: ${body}`);
+            // Integrate Email.js here with API key
+        }
+
+        function sendAdminNotification(subject, body) {
+            console.log(`Admin notification: Subject: ${subject}, Body: ${body}`);
+        }
+
+        // Logging
+        function logAction(type, message) {
+            console.log(`[${type}] ${message} at ${new Date().toISOString()}`);
+        }
+
+        // Initialize
+        document.querySelector('#language-select').addEventListener('change', (e) => {
+            state.language = e.target.value;
+            updateUI();
+        });
+
+        if (localStorage.getItem('theme') === 'dark') {
+            toggleTheme();
+        }
+
+        // PWA Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js').catch(err => console.error('Service Worker registration failed:', err));
+        }
+
+        // Geolocation for Branch Locator
+        function initMap() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(pos => {
+                    const map = document.querySelector('#map');
+                    map.textContent = `Branch located at: Lat ${pos.coords.latitude}, Lon ${pos.coords.longitude}`;
+                }, () => {
+                    document.querySelector('#map').textContent = 'Geolocation not available';
+                });
+            }
+        }
+
+        // Web Speech API for Chatbot
+        function initSpeech() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                document.querySelector('#chatbot-input').value = transcript;
+                sendChatbotMessage();
+            };
+            document.querySelector('#chatbot-input').addEventListener('focus', () => recognition.start());
+        }
+
+        // Mock Stock Ticker
+        function updateStockTicker() {
+            const stocks = db.investments.map(i => `${i.symbol}: €${(i.price * (1 + Math.random() * 0.1 - 0.05)).toFixed(2)}`).join(' | ');
+            console.log('Stock Ticker:', stocks);
+        }
+
+        setInterval(updateStockTicker, 60000);
+
+        // Initialize on Load
+        window.onload = () => {
+            initMap();
+            initSpeech();
+            updateStockTicker();
+            updateUI();
+        };
+    </script>
+</body>
+</html>
