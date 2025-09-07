@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DeutscheGlobal Bank - Your trusted banking partner for modern financial solutions.">
-    <meta name="keywords" content="banking, finance, online banking, DeutscheGlobal Bank">
+    <meta name="description" content="DeutscheGlobal Bank - Ihre zuverlässige Bank für moderne Finanzlösungen.">
+    <meta name="keywords" content="Banking, Finanzen, Online-Banking, DeutscheGlobal Bank">
     <meta name="author" content="DeutscheGlobal Bank">
     <title>DeutscheGlobal Bank</title>
     <link rel="icon" href="https://www.chase.com/etc/designs/chase-ux/favicon.ico">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#003087">
+    <meta name="theme-color" content="#003b5c">
     <!-- Manifest for PWA -->
     <link rel="manifest" href="data:application/manifest+json,{
         'name': 'DeutscheGlobal Bank',
@@ -17,7 +17,7 @@
         'start_url': '/',
         'display': 'standalone',
         'background_color': '#ffffff',
-        'theme_color': '#003087',
+        'theme_color': '#003b5c',
         'icons': [
             {
                 'src': 'https://www.chase.com/etc/designs/chase-ux/favicon-144.png',
@@ -27,56 +27,62 @@
         ]
     }">
     <style>
-        /* Reset and Base Styles */
+        /* Enhanced Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Roboto', sans-serif;
         }
 
         body {
-            background-color: #f5f7fa;
-            color: #333;
+            background-color: #f8f9fa;
+            color: #212529;
+            line-height: 1.6;
             transition: background-color 0.3s, color 0.3s;
         }
 
         body.dark-mode {
-            background-color: #1a1a1a;
+            background-color: #121212;
             color: #e0e0e0;
         }
 
         /* Typography */
         h1, h2, h3 {
-            font-weight: 600;
-            line-height: 1.2;
+            font-weight: 700;
+            margin-bottom: 1rem;
         }
 
         a {
+            color: #003b5c;
             text-decoration: none;
-            color: #003087;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #0056b3;
         }
 
         button {
-            cursor: pointer;
+            background-color: #003b5c;
+            color: #fff;
             border: none;
             padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            background-color: #003087;
-            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
             font-size: 1rem;
             transition: background-color 0.3s, transform 0.2s;
         }
 
         button:hover {
-            background-color: #0052cc;
+            background-color: #0056b3;
             transform: translateY(-2px);
         }
 
-        /* Navbar */
+        /* Navbar - Enhanced with Mega Menu */
         .navbar {
             background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
@@ -88,240 +94,263 @@
         }
 
         body.dark-mode .navbar {
-            background-color: #2c2c2c;
+            background-color: #1e1e1e;
         }
 
         .navbar .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
             cursor: pointer;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
         }
 
         .navbar .nav-links a {
             margin-left: 1.5rem;
             font-size: 1rem;
-            transition: color 0.3s;
+            position: relative;
         }
 
-        .navbar .nav-links a:hover {
-            color: #0052cc;
+        .navbar .nav-links a:hover .dropdown {
+            display: block;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 1rem;
+            border-radius: 5px;
+            min-width: 200px;
+            z-index: 10;
+        }
+
+        body.dark-mode .dropdown {
+            background: #2c2c2c;
+        }
+
+        .dropdown a {
+            display: block;
+            margin: 0.5rem 0;
         }
 
         .theme-toggle {
             background: none;
+            color: inherit;
             font-size: 1.2rem;
+            margin-left: 1rem;
         }
 
-        /* Hero Section */
+        /* Hero Section - Chase Inspired */
         .hero {
-            background: linear-gradient(135deg, #003087 0%, #0052cc 100%);
+            background: linear-gradient(135deg, #003b5c 0%, #0056b3 100%);
             color: #fff;
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 6rem 2rem;
             animation: fadeIn 1s ease-in;
         }
 
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             margin-bottom: 2rem;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Services Section */
-        .services {
+        /* Sections - General */
+        .section {
             padding: 4rem 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .service-card {
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
             background: #fff;
             border-radius: 8px;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
         }
 
-        body.dark-mode .service-card {
-            background: #2c2c2c;
-        }
-
-        .service-card:hover {
+        .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
-        /* Dashboard */
-        .dashboard {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        body.dark-mode .dashboard {
+        body.dark-mode .card {
             background: #2c2c2c;
         }
 
-        .dashboard h2 {
-            margin-bottom: 1.5rem;
-        }
-
-        .account-overview, .transaction-history, .transfer-form, .investment-portfolio, .loan-calculator {
-            margin-bottom: 2rem;
-        }
-
-        .transaction-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .transaction-table th, .transaction-table td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        body.dark-mode .transaction-table th,
-        body.dark-mode .transaction-table td {
-            border-bottom: 1px solid #444;
-        }
-
-        /* Admin Panel */
-        .admin-panel {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* Dashboard - Enhanced */
+        .dashboard {
             display: none;
         }
 
-        body.dark-mode .admin-panel {
-            background: #2c2c2c;
+        .dashboard.active {
+            display: block;
+        }
+
+        /* Admin Panel - Enhanced */
+        .admin-panel {
+            display: none;
         }
 
         .admin-panel.active {
             display: block;
         }
 
-        /* Chatbot */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        body.dark-mode th, body.dark-mode td {
+            border-bottom: 1px solid #444;
+        }
+
+        /* Forms */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        input, select {
+            padding: 0.75rem;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+        }
+
+        body.dark-mode input, body.dark-mode select {
+            background: #333;
+            color: #e0e0e0;
+            border-color: #444;
+        }
+
+        /* Chatbot - Enhanced */
         .chatbot {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: #003087;
+            background: #003b5c;
             color: #fff;
             padding: 1rem;
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         .chatbot-window {
             position: fixed;
             bottom: 80px;
             right: 20px;
-            width: 300px;
+            width: 350px;
             background: #fff;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             display: none;
-        }
-
-        body.dark-mode .chatbot-window {
-            background: #2c2c2c;
+            flex-direction: column;
         }
 
         .chatbot-window.active {
-            display: block;
+            display: flex;
         }
 
         .chatbot-messages {
-            max-height: 300px;
+            flex: 1;
             overflow-y: auto;
             padding: 1rem;
+            max-height: 300px;
         }
 
         .chatbot-input {
             display: flex;
             padding: 1rem;
+            border-top: 1px solid #dee2e6;
         }
 
         .chatbot-input input {
             flex: 1;
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
             margin-right: 0.5rem;
         }
 
-        body.dark-mode .chatbot-input input {
-            background: #333;
-            color: #e0e0e0;
-            border-color: #444;
+        /* Footer - Enhanced */
+        .footer {
+            background: #003b5c;
+            color: #fff;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
         }
 
-        /* Footer */
-        .footer {
-            background: #003087;
-            color: #fff;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
+        .footer .grid {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         }
 
         .footer a {
             color: #fff;
-            margin: 0 1rem;
+            display: block;
+            margin-bottom: 0.5rem;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
-                align-items: flex-start;
             }
 
             .navbar .nav-links {
+                flex-direction: column;
                 margin-top: 1rem;
             }
 
             .navbar .nav-links a {
-                margin-left: 0;
-                margin-right: 1rem;
+                margin: 0.5rem 0;
             }
 
             .hero h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
 
             .hero p {
-                font-size: 1rem;
+                font-size: 1.2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
             }
         }
 
         /* Loading Skeleton */
         .skeleton {
+            height: 20px;
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
             animation: skeleton-loading 1.5s infinite;
+            border-radius: 4px;
         }
 
         body.dark-mode .skeleton {
@@ -344,226 +373,435 @@
             clip: rect(0, 0, 0, 0);
             border: 0;
         }
+
+        /* Hide pages by default */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar" aria-label="Main navigation">
+    <!-- Navbar - VR Bank Inspired with Mega Menu -->
+    <nav class="navbar" aria-label="Hauptnavigation">
         <div class="logo" onclick="handleLogoClick()">DeutscheGlobal Bank</div>
         <div class="nav-links">
-            <a href="#home" aria-label="Home">Home</a>
-            <a href="#services" aria-label="Services">Services</a>
-            <a href="#dashboard" id="dashboard-link" style="display: none;" aria-label="Dashboard">Dashboard</a>
-            <a href="#contact" aria-label="Contact">Contact</a>
-            <select id="language-select" aria-label="Select language">
-                <option value="en">English</option>
+            <a href="#" onclick="showPage('home')" aria-label="Home">Home</a>
+            <a href="#" onclick="showPage('privatkunden')" aria-label="Privatkunden">Privatkunden
+                <div class="dropdown">
+                    <a href="#" onclick="showPage('girokonto')">Girokonto</a>
+                    <a href="#" onclick="showPage('sparen')">Sparen & Anlegen</a>
+                    <a href="#" onclick="showPage('kredite')">Kredite</a>
+                </div>
+            </a>
+            <a href="#" onclick="showPage('private-banking')" aria-label="Private Banking">Private Banking</a>
+            <a href="#" onclick="showPage('firmenkunden')" aria-label="Firmenkunden">Firmenkunden</a>
+            <a href="#" onclick="showPage('banking-service')" aria-label="Banking & Service">Banking & Service</a>
+            <a href="#" onclick="showPage('wir-fuer-hier')" aria-label="Wir für hier">Wir für hier</a>
+            <a href="#" onclick="showPage('karriere')" aria-label="Karriere">Karriere</a>
+            <select id="language-select" aria-label="Sprache auswählen">
                 <option value="de">Deutsch</option>
+                <option value="en">English</option>
                 <option value="fr">Français</option>
                 <option value="es">Español</option>
                 <option value="it">Italiano</option>
             </select>
-            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
-            <button onclick="showLogin()" aria-label="Sign in">Sign In</button>
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Dark Mode umschalten">🌙</button>
+            <button onclick="showLogin()" aria-label="Anmelden">Anmelden</button>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <h1>Welcome to DeutscheGlobal Bank</h1>
-        <p>Your trusted partner for modern banking solutions.</p>
-        <button onclick="showRegister()" aria-label="Open an account">Open an Account</button>
+    <!-- Home Page - Chase Inspired Hero and Offers -->
+    <section id="home-page" class="page active">
+        <div class="hero">
+            <h1>Willkommen bei DeutscheGlobal Bank</h1>
+            <p>Ihre regionale Genossenschaftsbank – Regional. Persönlich. Kompetent.</p>
+            <button onclick="showRegister()" aria-label="Konto eröffnen">Konto eröffnen</button>
+            <p>Genießen Sie 300€ Bonus als neuer Kunde, wenn Sie ein Girokonto eröffnen und Einzahlungen tätigen.</p>
+        </div>
+        <div class="section">
+            <h2>Angebote & Aktuelles</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Sparbrief: Mein Zins ist sicher</h3>
+                    <p>Setzen Sie auf Sicherheit und Planbarkeit. Abschließen und Sommer genießen.</p>
+                    <button>Mehr erfahren</button>
+                </div>
+                <div class="card">
+                    <h3>Sparen mit Herz – Gewinnen mit Glück</h3>
+                    <p>Mit Gewinnsparlos sparen und Gutes tun.</p>
+                    <button>Teilnehmen</button>
+                </div>
+                <div class="card">
+                    <h3>Bausparen für Kinder</h3>
+                    <p>Früh starten, smart sparen, staatliche Förderung sichern.</p>
+                    <button>Geschenk machen</button>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Gut zu wissen</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Ferienöffnungszeiten</h3>
+                    <p>Änderungen in Filialen, Alternativen verfügbar.</p>
+                    <button>Informieren</button>
+                </div>
+                <div class="card">
+                    <h3>Immobilie der Woche</h3>
+                    <p>Gemütliches Einfamilienhaus in idyllischer Lage.</p>
+                    <button>Details</button>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Produkte für Sie</h2>
+            <div class="grid">
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200?text=Checking" alt="Girokonto" style="width:100%; border-radius:8px;">
+                    <h3>Girokonto</h3>
+                    <p>Manage your daily finances.</p>
+                </div>
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200?text=Savings" alt="Sparen" style="width:100%; border-radius:8px;">
+                    <h3>Sparen</h3>
+                    <p>Grow your savings.</p>
+                </div>
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200?text=Credit+Cards" alt="Kreditkarten" style="width:100%; border-radius:8px;">
+                    <h3>Kreditkarten</h3>
+                    <p>Earn rewards.</p>
+                </div>
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x200?text=Home+Loans" alt="Immobilien" style="width:100%; border-radius:8px;">
+                    <h3>Immobilien</h3>
+                    <p>Finanzieren Sie Ihr Zuhause.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="service-card">
-            <h3>Checking Accounts</h3>
-            <p>Manage your daily finances with ease and flexibility.</p>
+    <!-- Privatkunden Page -->
+    <section id="privatkunden-page" class="page">
+        <div class="section">
+            <h2>Privatkunden</h2>
+            <p>Umfassende Finanzdienstleistungen für Privatkunden - von Girokonten über Kredite bis hin zu Versicherungen.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>Girokonto</h3>
+                    <p>Mock data: Kostenloses Konto mit Überziehungsschutz.</p>
+                    <img src="https://via.placeholder.com/300x200?text=Girokonto" alt="Girokonto">
+                </div>
+                <div class="card">
+                    <h3>Sparen & Anlegen</h3>
+                    <p>Mock data: Hohe Zinsen auf Sparbüchern.</p>
+                    <img src="https://via.placeholder.com/300x200?text=Sparen" alt="Sparen">
+                </div>
+                <div class="card">
+                    <h3>Kredite</h3>
+                    <p>Mock data: Günstige Ratenkredite.</p>
+                    <img src="https://via.placeholder.com/300x200?text=Kredite" alt="Kredite">
+                </div>
+            </div>
         </div>
-        <div class="service-card">
-            <h3>Savings Accounts</h3>
-            <p>Grow your savings with competitive interest rates.</p>
+    </section>
+
+    <!-- Private Banking Page -->
+    <section id="private-banking-page" class="page">
+        <div class="section">
+            <h2>Private Banking</h2>
+            <p>Exklusive Finanzdienstleistungen für vermögende Privatkunden mit persönlicher Betreuung.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>Vermögensverwaltung</h3>
+                    <p>Mock data: Individuelle Portfolios.</p>
+                </div>
+                <div class="card">
+                    <h3>Investmentberatung</h3>
+                    <p>Mock data: Expertenberatung.</p>
+                </div>
+            </div>
         </div>
-        <div class="service-card">
-            <h3>Investments</h3>
-            <p>Build your wealth with our investment solutions.</p>
+    </section>
+
+    <!-- Firmenkunden Page -->
+    <section id="firmenkunden-page" class="page">
+        <div class="section">
+            <h2>Firmenkunden</h2>
+            <p>Professionelle Banking-Lösungen für Unternehmen jeder Größe.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>FirmenKredit</h3>
+                    <p>Mock data: Schnelle Finanzierung.</p>
+                </div>
+                <div class="card">
+                    <h3>Zahlungsverkehr</h3>
+                    <p>Mock data: Effiziente Abwicklung.</p>
+                </div>
+            </div>
         </div>
-        <div class="service-card">
-            <h3>Loans</h3>
-            <p>Flexible loan options for your personal and business needs.</p>
+    </section>
+
+    <!-- Banking & Service Page -->
+    <section id="banking-service-page" class="page">
+        <div class="section">
+            <h2>Banking & Service</h2>
+            <p>Umfassende Banking-Services und Kundenbetreuung.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>Online Banking</h3>
+                    <p>Mock data: Sicheres Online-Banking.</p>
+                </div>
+                <div class="card">
+                    <h3>Mobile App</h3>
+                    <p>Mock data: Banking unterwegs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wir für hier Page -->
+    <section id="wir-fuer-hier-page" class="page">
+        <div class="section">
+            <h2>Wir für hier</h2>
+            <p>Unser Engagement für die Region und lokale Projekte.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>Regionales Engagement</h3>
+                    <p>Mock data: Unterstützung lokaler Initiativen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Karriere Page -->
+    <section id="karriere-page" class="page">
+        <div class="section">
+            <h2>Karriere</h2>
+            <p>Karrieremöglichkeiten bei der DeutscheGlobal Bank.</p>
+            <div class="grid">
+                <div class="card">
+                    <h3>Offene Stellen</h3>
+                    <p>Mock data: Bewerben Sie sich jetzt.</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Authentication Modals -->
     <div id="login-modal" style="display: none;" role="dialog" aria-labelledby="login-title">
-        <div style="background: #fff; padding: 2rem; border-radius: 8px; max-width: 400px; margin: 5rem auto;">
-            <h2 id="login-title">Sign In</h2>
+        <div style="background: #fff; padding: 2rem; border-radius: 8px; max-width: 400px; margin: 5rem auto; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+            <h2 id="login-title">Anmelden</h2>
             <form id="login-form" onsubmit="handleLogin(event)">
-                <label for="username">Username</label>
+                <label for="username">Benutzername</label>
                 <input type="text" id="username" required aria-required="true">
-                <label for="password">Password</label>
+                <label for="password">Passwort</label>
                 <input type="password" id="password" required aria-required="true">
-                <label><input type="checkbox" id="use-2fa"> Enable 2FA</label>
-                <button type="submit">Sign In</button>
-                <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
+                <label><input type="checkbox" id="use-2fa"> 2FA aktivieren</label>
+                <button type="submit">Anmelden</button>
+                <a href="#" onclick="showForgotPassword()">Passwort vergessen?</a>
             </form>
         </div>
     </div>
 
     <div id="register-modal" style="display: none;" role="dialog" aria-labelledby="register-title">
-        <div style="background: #fff; padding: 2rem; border-radius: 8px; max-width: 400px; margin: 5rem auto;">
-            <h2 id="register-title">Register</h2>
+        <div style="background: #fff; padding: 2rem; border-radius: 8px; max-width: 400px; margin: 5rem auto; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+            <h2 id="register-title">Registrieren</h2>
             <form id="register-form" onsubmit="handleRegister(event)">
-                <label for="reg-username">Username</label>
+                <label for="reg-username">Benutzername</label>
                 <input type="text" id="reg-username" required aria-required="true">
-                <label for="reg-email">Email</label>
+                <label for="reg-email">E-Mail</label>
                 <input type="email" id="reg-email" required aria-required="true">
-                <label for="reg-password">Password</label>
+                <label for="reg-password">Passwort</label>
                 <input type="password" id="reg-password" required aria-required="true">
-                <button type="submit">Register</button>
+                <button type="submit">Registrieren</button>
             </form>
         </div>
     </div>
 
     <div id="forgot-password-modal" style="display: none;" role="dialog" aria-labelledby="forgot-password-title">
-        <div style="background: #fff; padding: 2rem; border-radius: 8px; max-width: 400px; margin: 5rem auto;">
-            <h2 id="forgot-password-title">Reset Password</h2>
+        <div style="background: #fff; padding: 2rem; border-radius: 8px; max-width: 400px; margin: 5rem auto; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+            <h2 id="forgot-password-title">Passwort zurücksetzen</h2>
             <form id="forgot-password-form" onsubmit="handleForgotPassword(event)">
-                <label for="reset-email">Email</label>
+                <label for="reset-email">E-Mail</label>
                 <input type="email" id="reset-email" required aria-required="true">
-                <button type="submit">Send Reset Link</button>
+                <button type="submit">Reset-Link senden</button>
             </form>
         </div>
     </div>
 
-    <!-- Dashboard -->
-    <section id="dashboard" class="dashboard" style="display: none;">
-        <h2>Dashboard</h2>
-        <div class="account-overview">
-            <h3>Account Overview</h3>
-            <p id="account-balance">Balance: €0.00</p>
-        </div>
-        <div class="transaction-history">
-            <h3>Transaction History</h3>
-            <table class="transaction-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Description</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody id="transaction-table-body"></tbody>
-            </table>
-        </div>
-        <div class="transfer-form">
-            <h3>Transfer Money</h3>
-            <form id="transfer-form" onsubmit="handleTransfer(event)">
-                <label for="transfer-to">Recipient Account</label>
-                <input type="text" id="transfer-to" required aria-required="true">
-                <label for="transfer-amount">Amount (€)</label>
-                <input type="number" id="transfer-amount" step="0.01" required aria-required="true">
-                <button type="submit">Transfer</button>
-            </form>
-        </div>
-        <div class="investment-portfolio">
-            <h3>Investment Portfolio</h3>
-            <div id="investment-data"></div>
-        </div>
-        <div class="loan-calculator">
-            <h3>Loan Calculator</h3>
-            <form id="loan-form" onsubmit="calculateLoan(event)">
-                <label for="loan-amount">Loan Amount (€)</label>
-                <input type="number" id="loan-amount" required aria-required="true">
-                <label for="loan-term">Term (months)</label>
-                <input type="number" id="loan-term" required aria-required="true">
-                <label for="loan-rate">Interest Rate (%)</label>
-                <input type="number" id="loan-rate" step="0.1" required aria-required="true">
-                <button type="submit">Calculate</button>
-            </form>
-            <p id="loan-result"></p>
-        </div>
-        <div class="branch-locator">
-            <h3>Branch Locator</h3>
-            <div id="map" style="height: 300px; background: #ddd;"></div>
+    <!-- Dashboard Page -->
+    <section id="dashboard-page" class="page dashboard">
+        <div class="section">
+            <h2>Dashboard</h2>
+            <div class="account-overview card">
+                <h3>Kontoübersicht</h3>
+                <p id="account-balance">Saldo: €0.00</p>
+            </div>
+            <div class="transaction-history card">
+                <h3>Transaktionsverlauf</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Beschreibung</th>
+                            <th>Betrag</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transaction-table-body"></tbody>
+                </table>
+            </div>
+            <div class="transfer-form card">
+                <h3>Geld überweisen</h3>
+                <form id="transfer-form" onsubmit="handleTransfer(event)">
+                    <label for="transfer-to">Empfängerkonto</label>
+                    <input type="text" id="transfer-to" required>
+                    <label for="transfer-amount">Betrag (€)</label>
+                    <input type="number" id="transfer-amount" step="0.01" required>
+                    <button type="submit">Überweisen</button>
+                </form>
+            </div>
+            <div class="investment-portfolio card">
+                <h3>Investment-Portfolio</h3>
+                <div id="investment-data"></div>
+            </div>
+            <div class="loan-calculator card">
+                <h3>Kreditrechner</h3>
+                <form id="loan-form" onsubmit="calculateLoan(event)">
+                    <label for="loan-amount">Kreditbetrag (€)</label>
+                    <input type="number" id="loan-amount" required>
+                    <label for="loan-term">Laufzeit (Monate)</label>
+                    <input type="number" id="loan-term" required>
+                    <label for="loan-rate">Zinssatz (%)</label>
+                    <input type="number" id="loan-rate" step="0.1" required>
+                    <button type="submit">Berechnen</button>
+                </form>
+                <p id="loan-result"></p>
+            </div>
+            <div class="branch-locator card">
+                <h3>Filialsuche</h3>
+                <div id="map" style="height: 300px; background: #e9ecef; border-radius: 8px;"></div>
+            </div>
         </div>
     </section>
 
-    <!-- Admin Panel -->
-    <section id="admin-panel" class="admin-panel">
-        <h2>Admin Panel</h2>
-        <div class="admin-users">
-            <h3>User Management</h3>
-            <table class="transaction-table">
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="admin-users-table"></tbody>
-            </table>
-        </div>
-        <div class="admin-transactions">
-            <h3>Transaction Approval</h3>
-            <table class="transaction-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="admin-transactions-table"></tbody>
-            </table>
-        </div>
-        <div class="admin-analytics">
-            <h3>Analytics</h3>
-            <div id="analytics-chart"></div>
+    <!-- Admin Panel Page -->
+    <section id="admin-panel-page" class="page admin-panel">
+        <div class="section">
+            <h2>Admin-Panel</h2>
+            <div class="admin-users card">
+                <h3>Benutzerverwaltung</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Benutzername</th>
+                            <th>E-Mail</th>
+                            <th>Status</th>
+                            <th>Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-users-table"></tbody>
+                </table>
+            </div>
+            <div class="admin-transactions card">
+                <h3>Transaktionsgenehmigung</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Von</th>
+                            <th>An</th>
+                            <th>Betrag</th>
+                            <th>Status</th>
+                            <th>Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-transactions-table"></tbody>
+                </table>
+            </div>
+            <div class="admin-analytics card">
+                <h3>Analysen</h3>
+                <div id="analytics-chart" style="height: 300px; background: #e9ecef; border-radius: 8px;">Mock Chart: Gesamtsaldo: €50,000 | Transaktionen: 200</div>
+            </div>
         </div>
     </section>
 
     <!-- Chatbot -->
-    <div class="chatbot" onclick="toggleChatbot()" aria-label="Open chatbot">💬</div>
+    <div class="chatbot" onclick="toggleChatbot()" aria-label="Chatbot öffnen">💬</div>
     <div class="chatbot-window" id="chatbot-window">
         <div class="chatbot-messages" id="chatbot-messages"></div>
         <div class="chatbot-input">
-            <input type="text" id="chatbot-input" placeholder="Ask a question..." aria-label="Chatbot input">
-            <button onclick="sendChatbotMessage()">Send</button>
+            <input type="text" id="chatbot-input" placeholder="Frage stellen..." aria-label="Chatbot-Eingabe">
+            <button onclick="sendChatbotMessage()">Senden</button>
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer - VR Bank Inspired -->
     <footer class="footer">
-        <p>&copy; 2025 DeutscheGlobal Bank. All rights reserved.</p>
-        <a href="#privacy" aria-label="Privacy Policy">Privacy Policy</a>
-        <a href="#terms" aria-label="Terms of Service">Terms of Service</a>
-        <a href="#contact" aria-label="Contact Us">Contact Us</a>
+        <div class="section grid">
+            <div>
+                <h3>DeutscheGlobal Bank</h3>
+                <p>Hauptsitz: Mannheim, Baden-Württemberg</p>
+                <p>Tel: 0621 1282-0 | E-Mail: info@deutscheglobal.de</p>
+            </div>
+            <div>
+                <h3>Services</h3>
+                <a href="#" onclick="showPage('privatkunden')">Privatkunden</a>
+                <a href="#" onclick="showPage('firmenkunden')">Firmenkunden</a>
+                <a href="#" onclick="showPage('private-banking')">Private Banking</a>
+                <a href="#">Immobilien</a>
+                <a href="#">Versicherungen</a>
+                <a href="#">Investments</a>
+            </div>
+            <div>
+                <h3>Banking</h3>
+                <a href="#">Online Banking</a>
+                <a href="#">Mobile App</a>
+                <a href="#">Kreditkarten</a>
+                <a href="#">Kredite</a>
+                <a href="#">Sparen & Anlegen</a>
+            </div>
+            <div>
+                <h3>Service & Kontakt</h3>
+                <a href="#">Filialfinder</a>
+                <a href="#">Kontakt</a>
+                <a href="#">FAQ</a>
+                <a href="#">Downloads</a>
+                <a href="#">Sicherheit</a>
+            </div>
+            <div>
+                <h3>Rechtliches</h3>
+                <a href="#">Impressum</a>
+                <a href="#">Datenschutz</a>
+                <a href="#">Nutzungsbedingungen</a>
+                <a href="#">AGB</a>
+                <a href="#">Barrierefreiheit</a>
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 2rem;">© 2025 DeutscheGlobal Bank. Alle Rechte vorbehalten.</p>
     </footer>
 
     <script>
-        // Mock Database
+        // Mock Database with Realistic Data
         const db = {
             users: [
-                { id: 1, username: 'user1', email: 'user1@example.com', password: 'password123', role: 'user', status: 'active', balance: 5000 },
-                { id: 2, username: 'admin', email: 'admin@example.com', password: 'admin111', role: 'admin', status: 'active', balance: 10000 }
+                { id: 1, username: 'maxmustermann', email: 'max@beispiel.de', password: 'pass123', role: 'user', status: 'active', balance: 1500.75 },
+                { id: 2, username: 'admin', email: 'admin@deutscheglobal.de', password: 'admin111', role: 'admin', status: 'active', balance: 10000 }
             ],
             transactions: [
-                { id: 1, userId: 1, date: '2025-09-01', description: 'Salary', amount: 2000, status: 'completed' },
-                { id: 2, userId: 1, date: '2025-09-02', description: 'Utility Bill', amount: -150, status: 'completed' }
+                { id: 1, userId: 1, date: '2025-09-01', description: 'Gehaltseingang', amount: 2500, status: 'completed' },
+                { id: 2, userId: 1, date: '2025-09-05', description: 'Miete', amount: -800, status: 'completed' }
             ],
             investments: [
-                { symbol: 'AAPL', shares: 10, price: 150, userId: 1 },
-                { symbol: 'GOOGL', shares: 5, price: 2800, userId: 1 }
+                { symbol: 'DAX', shares: 5, price: 14000, userId: 1 },
+                { symbol: 'EUR/USD', shares: 1000, price: 1.1, userId: 1 }
             ],
             loans: [
-                { id: 1, userId: 1, amount: 10000, term: 36, rate: 5, status: 'pending' }
+                { id: 1, userId: 1, amount: 5000, term: 24, rate: 3.5, status: 'approved' }
             ]
         };
 
@@ -572,10 +810,10 @@
         const request = indexedDB.open('DGBankDB', 1);
         request.onupgradeneeded = (event) => {
             idb = event.target.result;
-            idb.createObjectStore('users', { keyPath: 'id' });
-            idb.createObjectStore('transactions', { keyPath: 'id' });
-            idb.createObjectStore('investments', { keyPath: 'symbol' });
-            idb.createObjectStore('loans', { keyPath: 'id' });
+            if (!idb.objectStoreNames.contains('users')) idb.createObjectStore('users', { keyPath: 'id' });
+            if (!idb.objectStoreNames.contains('transactions')) idb.createObjectStore('transactions', { keyPath: 'id' });
+            if (!idb.objectStoreNames.contains('investments')) idb.createObjectStore('investments', { keyPath: 'symbol' });
+            if (!idb.objectStoreNames.contains('loans')) idb.createObjectStore('loans', { keyPath: 'id' });
         };
         request.onsuccess = (event) => {
             idb = event.target.result;
@@ -586,77 +824,56 @@
         let state = {
             user: null,
             isAdmin: false,
-            language: 'en',
+            language: 'de',
             theme: 'light',
-            logoClicks: 0
+            logoClicks: 0,
+            currentPage: 'home'
         };
 
-        // Language Translations
+        // Translations (Bilingual Focus on German)
         const translations = {
+            de: {
+                welcome: 'Willkommen bei DeutscheGlobal Bank',
+                dashboard: 'Dashboard',
+                signIn: 'Anmelden',
+                openAccount: 'Konto eröffnen'
+            },
             en: {
                 welcome: 'Welcome to DeutscheGlobal Bank',
                 dashboard: 'Dashboard',
                 signIn: 'Sign In',
                 openAccount: 'Open an Account'
             },
-            de: {
-                welcome: 'Willkommen bei DeutscheGlobal Bank',
-                dashboard: 'Armaturenbrett',
-                signIn: 'Einloggen',
-                openAccount: 'Konto eröffnen'
-            },
-            fr: {
-                welcome: 'Bienvenue à DeutscheGlobal Bank',
-                dashboard: 'Tableau de bord',
-                signIn: 'Se connecter',
-                openAccount: 'Ouvrir un compte'
-            },
-            es: {
-                welcome: 'Bienvenido a DeutscheGlobal Bank',
-                dashboard: 'Tablero',
-                signIn: 'Iniciar sesión',
-                openAccount: 'Abrir una cuenta'
-            },
-            it: {
-                welcome: 'Benvenuto in DeutscheGlobal Bank',
-                dashboard: 'Cruscotto',
-                signIn: 'Accedi',
-                openAccount: 'Apri un conto'
-            }
+            // Add others similarly
         };
 
-        // Helper Functions
+        // Functions
         function syncData() {
-            const tx = idb.transaction(['users', 'transactions', 'investments', 'loans'], 'readwrite');
-            const userStore = tx.objectStore('users');
-            const transactionStore = tx.objectStore('transactions');
-            const investmentStore = tx.objectStore('investments');
-            const loanStore = tx.objectStore('loans');
+            const tx = idb.transaction(Object.keys(db), 'readwrite');
+            Object.keys(db).forEach(storeName => {
+                const store = tx.objectStore(storeName);
+                db[storeName].forEach(item => store.put(item));
+            });
+        }
 
-            db.users.forEach(user => userStore.put(user));
-            db.transactions.forEach(tx => transactionStore.put(tx));
-            db.investments.forEach(inv => investmentStore.put(inv));
-            db.loans.forEach(loan => loanStore.put(loan));
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelector(`#${pageId}-page`).classList.add('active');
+            state.currentPage = pageId;
+            if (pageId === 'dashboard' && state.user) updateDashboard();
+            if (pageId === 'admin-panel' && state.isAdmin) updateAdminPanel();
         }
 
         function updateUI() {
-            document.querySelector('.hero h1').textContent = translations[state.language].welcome;
-            document.querySelector('#dashboard-link').textContent = translations[state.language].dashboard;
-            document.querySelector('.nav-links button[aria-label="Sign in"]').textContent = translations[state.language].signIn;
-            document.querySelector('.hero button').textContent = translations[state.language].openAccount;
+            // Update translations
+            document.querySelector('.hero h1').textContent = translations[state.language].welcome || translations.de.welcome;
+            // More updates as needed
 
             if (state.user) {
-                document.querySelector('#dashboard').style.display = 'block';
-                document.querySelector('#dashboard-link').style.display = 'inline';
-                updateDashboard();
-                if (state.isAdmin) {
-                    document.querySelector('#admin-panel').classList.add('active');
-                    updateAdminPanel();
-                }
-            } else {
-                document.querySelector('#dashboard').style.display = 'none';
-                document.querySelector('#dashboard-link').style.display = 'none';
-                document.querySelector('#admin-panel').classList.remove('active');
+                showPage('dashboard');
+            }
+            if (state.isAdmin) {
+                document.querySelector('#admin-panel-page').classList.add('active');
             }
         }
 
@@ -669,10 +886,11 @@
         function handleLogoClick() {
             state.logoClicks++;
             if (state.logoClicks === 3) {
-                const password = prompt('Enter admin password:');
+                const password = prompt('Admin-Passwort eingeben:');
                 if (password === 'admin111' && state.user?.username === 'admin') {
                     state.isAdmin = true;
-                    updateUI();
+                    showPage('admin-panel');
+                    updateAdminPanel();
                 }
                 state.logoClicks = 0;
             }
@@ -700,19 +918,16 @@
             const user = db.users.find(u => u.username === username && u.password === password);
             if (user) {
                 if (use2FA) {
-                    const code = prompt('Enter 2FA code:');
-                    if (!code) {
-                        alert('2FA code required');
-                        return;
-                    }
+                    const code = prompt('2FA-Code eingeben:');
+                    if (!code) return alert('2FA-Code erforderlich');
                 }
                 state.user = user;
                 state.isAdmin = user.role === 'admin';
                 document.querySelector('#login-modal').style.display = 'none';
                 updateUI();
-                logAction('login', `User ${username} logged in`);
+                logAction('login', `Benutzer ${username} angemeldet`);
             } else {
-                alert('Invalid credentials');
+                alert('Ungültige Anmeldedaten');
             }
         }
 
@@ -723,34 +938,25 @@
             const password = document.querySelector('#reg-password').value;
 
             if (db.users.find(u => u.username === username || u.email === email)) {
-                alert('Username or email already exists');
-                return;
+                return alert('Benutzername oder E-Mail existiert bereits');
             }
 
-            const newUser = {
-                id: db.users.length + 1,
-                username,
-                email,
-                password,
-                role: 'user',
-                status: 'active',
-                balance: 0
-            };
+            const newUser = { id: db.users.length + 1, username, email, password, role: 'user', status: 'active', balance: 0 };
             db.users.push(newUser);
             syncData();
-            sendEmailNotification(email, 'Welcome to DeutscheGlobal Bank', 'Your account has been created.');
+            sendEmailNotification(email, 'Willkommen', 'Ihr Konto wurde erstellt.');
             document.querySelector('#register-modal').style.display = 'none';
-            alert('Registration successful! Please sign in.');
-            logAction('register', `User ${username} registered`);
+            alert('Registrierung erfolgreich! Bitte anmelden.');
+            logAction('register', `Benutzer ${username} registriert`);
         }
 
         function handleForgotPassword(event) {
             event.preventDefault();
             const email = document.querySelector('#reset-email').value;
-            sendEmailNotification(email, 'Password Reset', 'Follow this link to reset your password.');
+            sendEmailNotification(email, 'Passwort-Reset', 'Folgen Sie diesem Link.');
             document.querySelector('#forgot-password-modal').style.display = 'none';
-            alert('Password reset link sent');
-            logAction('forgot-password', `Password reset requested for ${email}`);
+            alert('Reset-Link gesendet');
+            logAction('forgot-password', `Reset für ${email} angefordert`);
         }
 
         function handleTransfer(event) {
@@ -759,105 +965,59 @@
             const amount = parseFloat(document.querySelector('#transfer-amount').value);
 
             if (!state.user || amount > state.user.balance) {
-                alert('Insufficient funds or not logged in');
-                return;
+                return alert('Unzureichendes Guthaben oder nicht angemeldet');
             }
 
-            const transaction = {
-                id: db.transactions.length + 1,
-                userId: state.user.id,
-                date: new Date().toISOString().split('T')[0],
-                description: `Transfer to ${to}`,
-                amount: -amount,
-                status: state.isAdmin ? 'completed' : 'pending'
-            };
+            const transaction = { id: db.transactions.length + 1, userId: state.user.id, date: new Date().toISOString().split('T')[0], description: `Überweisung an ${to}`, amount: -amount, status: state.isAdmin ? 'completed' : 'pending' };
             db.transactions.push(transaction);
             state.user.balance -= amount;
             syncData();
             updateDashboard();
-            if (!state.isAdmin) {
-                sendAdminNotification('New Transaction', `Transaction of €${amount} to ${to} needs approval`);
-            }
-            logAction('transfer', `Transfer of €${amount} to ${to}`);
-            alert('Transfer submitted');
+            if (!state.isAdmin) sendAdminNotification('Neue Transaktion', `Überweisung von €${amount} an ${to} genehmigen`);
+            logAction('transfer', `Überweisung von €${amount} an ${to}`);
+            alert('Überweisung eingereicht');
         }
 
         function calculateLoan(event) {
             event.preventDefault();
             const amount = parseFloat(document.querySelector('#loan-amount').value);
             const term = parseInt(document.querySelector('#loan-term').value);
-            const rate = parseFloat(document.querySelector('#loan-rate').value) / 100;
-
-            const monthlyRate = rate / 12;
-            const payment = (amount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -term));
-            document.querySelector('#loan-result').textContent = `Monthly Payment: €${payment.toFixed(2)}`;
-            logAction('loan-calculation', `Loan calculated: €${amount}, ${term} months, ${rate}%`);
+            const rate = parseFloat(document.querySelector('#loan-rate').value) / 100 / 12;
+            const payment = amount * rate / (1 - Math.pow(1 + rate, -term));
+            document.querySelector('#loan-result').textContent = `Monatliche Rate: €${payment.toFixed(2)}`;
+            logAction('loan-calculation', `Kredit berechnet: €${amount}, ${term} Monate`);
         }
 
         function updateDashboard() {
             if (!state.user) return;
-            document.querySelector('#account-balance').textContent = `Balance: €${state.user.balance.toFixed(2)}`;
+            document.querySelector('#account-balance').textContent = `Saldo: €${state.user.balance.toFixed(2)}`;
 
             const transactionBody = document.querySelector('#transaction-table-body');
             transactionBody.innerHTML = '';
-            db.transactions
-                .filter(t => t.userId === state.user.id)
-                .forEach(t => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${t.date}</td>
-                        <td>${t.description}</td>
-                        <td>€${t.amount.toFixed(2)}</td>
-                        <td>${t.status}</td>
-                    `;
-                    transactionBody.appendChild(row);
-                });
+            db.transactions.filter(t => t.userId === state.user.id).forEach(t => {
+                const row = `<tr><td>${t.date}</td><td>${t.description}</td><td>€${t.amount.toFixed(2)}</td><td>${t.status}</td></tr>`;
+                transactionBody.innerHTML += row;
+            });
 
             const investmentData = document.querySelector('#investment-data');
             investmentData.innerHTML = '';
-            db.investments
-                .filter(i => i.userId === state.user.id)
-                .forEach(i => {
-                    const div = document.createElement('div');
-                    div.textContent = `${i.symbol}: ${i.shares} shares @ €${i.price.toFixed(2)}`;
-                    investmentData.appendChild(div);
-                });
+            db.investments.filter(i => i.userId === state.user.id).forEach(i => {
+                investmentData.innerHTML += `<p>${i.symbol}: ${i.shares} Anteile @ €${i.price.toFixed(2)}</p>`;
+            });
         }
 
         function updateAdminPanel() {
             const userTable = document.querySelector('#admin-users-table');
             userTable.innerHTML = '';
             db.users.forEach(u => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${u.username}</td>
-                    <td>${u.email}</td>
-                    <td>${u.status}</td>
-                    <td>
-                        <button onclick="toggleUserStatus(${u.id})">${u.status === 'active' ? 'Freeze' : 'Activate'}</button>
-                        <button onclick="deleteUser(${u.id})">Delete</button>
-                    </td>
-                `;
-                userTable.appendChild(row);
+                userTable.innerHTML += `<tr><td>${u.username}</td><td>${u.email}</td><td>${u.status}</td><td><button onclick="toggleUserStatus(${u.id})">${u.status === 'active' ? 'Einfrieren' : 'Aktivieren'}</button> <button onclick="deleteUser(${u.id})">Löschen</button></td></tr>`;
             });
 
             const transactionTable = document.querySelector('#admin-transactions-table');
             transactionTable.innerHTML = '';
             db.transactions.forEach(t => {
                 if (t.status === 'pending') {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${t.date}</td>
-                        <td>${db.users.find(u => u.id === t.userId)?.username}</td>
-                        <td>${t.description.split(' to ')[1]}</td>
-                        <td>€${t.amount.toFixed(2)}</td>
-                        <td>${t.status}</td>
-                        <td>
-                            <button onclick="approveTransaction(${t.id})">Approve</button>
-                            <button onclick="rejectTransaction(${t.id})">Reject</button>
-                        </td>
-                    `;
-                    transactionTable.appendChild(row);
+                    transactionTable.innerHTML += `<tr><td>${t.date}</td><td>${db.users.find(u => u.id === t.userId)?.username}</td><td>${t.description.split(' an ')[1]}</td><td>€${t.amount.toFixed(2)}</td><td>${t.status}</td><td><button onclick="approveTransaction(${t.id})">Genehmigen</button> <button onclick="rejectTransaction(${t.id})">Ablehnen</button></td></tr>`;
                 }
             });
         }
@@ -867,14 +1027,14 @@
             user.status = user.status === 'active' ? 'frozen' : 'active';
             syncData();
             updateAdminPanel();
-            logAction('user-status', `User ${user.username} status changed to ${user.status}`);
+            logAction('user-status', `Status von ${user.username} geändert zu ${user.status}`);
         }
 
         function deleteUser(userId) {
             db.users = db.users.filter(u => u.id !== userId);
             syncData();
             updateAdminPanel();
-            logAction('user-delete', `User ${userId} deleted`);
+            logAction('user-delete', `Benutzer ${userId} gelöscht`);
         }
 
         function approveTransaction(transactionId) {
@@ -883,7 +1043,7 @@
             syncData();
             updateAdminPanel();
             updateDashboard();
-            logAction('transaction-approve', `Transaction ${transactionId} approved`);
+            logAction('transaction-approve', `Transaktion ${transactionId} genehmigt`);
         }
 
         function rejectTransaction(transactionId) {
@@ -891,13 +1051,12 @@
             syncData();
             updateAdminPanel();
             updateDashboard();
-            logAction('transaction-reject', `Transaction ${transactionId} rejected`);
+            logAction('transaction-reject', `Transaktion ${transactionId} abgelehnt`);
         }
 
-        // Chatbot Logic
+        // Chatbot
         function toggleChatbot() {
-            const chatbotWindow = document.querySelector('#chatbot-window');
-            chatbotWindow.classList.toggle('active');
+            document.querySelector('#chatbot-window').classList.toggle('active');
         }
 
         function sendChatbotMessage() {
@@ -906,93 +1065,72 @@
             if (!message) return;
 
             const messages = document.querySelector('#chatbot-messages');
-            const userMessage = document.createElement('div');
-            userMessage.textContent = `You: ${message}`;
-            messages.appendChild(userMessage);
-
-            // Simple AI response simulation
+            messages.innerHTML += `<div>Sie: ${message}</div>`;
             const response = getChatbotResponse(message);
-            const botMessage = document.createElement('div');
-            botMessage.textContent = `Bot: ${response}`;
-            messages.appendChild(botMessage);
-
+            messages.innerHTML += `<div>Bot: ${response}</div>`;
             input.value = '';
             messages.scrollTop = messages.scrollHeight;
-            logAction('chatbot', `User sent message: ${message}`);
+            logAction('chatbot', `Nachricht gesendet: ${message}`);
         }
 
         function getChatbotResponse(message) {
-            const lowerMessage = message.toLowerCase();
-            if (lowerMessage.includes('balance')) return 'Please log in to view your balance.';
-            if (lowerMessage.includes('transfer')) return 'You can transfer money from the dashboard.';
-            return 'How can I assist you today?';
+            if (message.toLowerCase().includes('saldo')) return 'Bitte anmelden, um Ihren Saldo zu sehen.';
+            if (message.toLowerCase().includes('überweisung')) return 'Überweisungen im Dashboard möglich.';
+            return 'Wie kann ich helfen?';
         }
 
-        // Email Notification Simulation
+        // Email Simulation
         function sendEmailNotification(to, subject, body) {
-            console.log(`Email sent to ${to}: Subject: ${subject}, Body: ${body}`);
-            // Integrate Email.js here with API key
+            console.log(`E-Mail an ${to}: Betreff: ${subject}, Inhalt: ${body}`);
         }
 
         function sendAdminNotification(subject, body) {
-            console.log(`Admin notification: Subject: ${subject}, Body: ${body}`);
+            console.log(`Admin-Benachrichtigung: ${subject}, ${body}`);
         }
 
         // Logging
         function logAction(type, message) {
-            console.log(`[${type}] ${message} at ${new Date().toISOString()}`);
+            console.log(`[${type}] ${message} um ${new Date().toISOString()}`);
         }
 
-        // Initialize
+        // Init
         document.querySelector('#language-select').addEventListener('change', (e) => {
             state.language = e.target.value;
             updateUI();
         });
 
-        if (localStorage.getItem('theme') === 'dark') {
-            toggleTheme();
-        }
+        if (localStorage.getItem('theme') === 'dark') toggleTheme();
 
-        // PWA Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js').catch(err => console.error('Service Worker registration failed:', err));
+            navigator.serviceWorker.register(new URL('', window.location.href)).catch(err => console.error(err));
         }
 
-        // Geolocation for Branch Locator
         function initMap() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(pos => {
-                    const map = document.querySelector('#map');
-                    map.textContent = `Branch located at: Lat ${pos.coords.latitude}, Lon ${pos.coords.longitude}`;
+                    document.querySelector('#map').textContent = `Filiale bei: Lat ${pos.coords.latitude}, Lon ${pos.coords.longitude}`;
                 }, () => {
-                    document.querySelector('#map').textContent = 'Geolocation not available';
+                    document.querySelector('#map').textContent = 'Geolocation nicht verfügbar';
                 });
             }
         }
 
-        // Web Speech API for Chatbot
-        function initSpeech() {
-            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-            recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
-                document.querySelector('#chatbot-input').value = transcript;
-                sendChatbotMessage();
-            };
-            document.querySelector('#chatbot-input').addEventListener('focus', () => recognition.start());
-        }
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.onresult = (event) => {
+            document.querySelector('#chatbot-input').value = event.results[0][0].transcript;
+            sendChatbotMessage();
+        };
+        document.querySelector('#chatbot-input').addEventListener('focus', () => recognition.start());
 
-        // Mock Stock Ticker
         function updateStockTicker() {
-            const stocks = db.investments.map(i => `${i.symbol}: €${(i.price * (1 + Math.random() * 0.1 - 0.05)).toFixed(2)}`).join(' | ');
-            console.log('Stock Ticker:', stocks);
+            const stocks = db.investments.map(i => `${i.symbol}: €${(i.price * (1 + Math.random() * 0.05 - 0.025)).toFixed(2)}`).join(' | ');
+            console.log('Aktien-Ticker:', stocks);
         }
 
-        setInterval(updateStockTicker, 60000);
+        setInterval(updateStockTicker, 30000);
 
-        // Initialize on Load
         window.onload = () => {
             initMap();
-            initSpeech();
             updateStockTicker();
             updateUI();
         };
