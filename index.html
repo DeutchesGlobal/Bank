@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>DeutscheGlobal Bank</title>
+
+<!-- PWA manifest -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1220" id="metaThemeColor">
+
+<!-- Fonts & Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<!-- =========================
+     STYLES (mobile-first, responsive)
+     ========================= -->
+<style>
+:root{
+  --bg:#0f1724; --card:#0b1220; --surface:#0b1220;
+  --primary:#2563eb; --accent:#10b981; --muted:#9aa7bd; --text:#e6eef8;
+  --danger:#ef4444; --radius:12px; --glass: rgba(255,255,255,0.03);
+  --shadow: 0 10px 30px rgba(2,6,23,0.6);
+  --transition: all .28s cubic-bezier(.2,.9,.2,1);
+}
+[data-theme="light"]{
+  --bg:#f7f9fc; --card:#ffffff; --surface:#fff; --primary:#2563eb; --text:#0b172a; --muted:#526174; --glass: rgba(2,6,23,0.02);
+}
+
+/* Reset & base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:linear-gradient(180deg,var(--bg),rgba(0,0,0,0));color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;-webkit-font-smoothing:antialiased}
+.container{max-width:1100px;margin:0 auto;padding:1rem}
+
+/* Header */
+.header{position:sticky;top:0;z-index:60;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.02)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;padding:.85rem 1rem;gap:1rem}
+.brand{display:flex;align-items:center;gap:.75rem;cursor:pointer}
+.brand svg{width:44px;height:44px;transition:transform .45s}
+.brand:hover svg{transform:rotate(14deg)}
+.brand-title{font-weight:800;font-size:1rem}
+.nav{display:flex;gap:.45rem;align-items:center}
+.nav a{color:var(--muted);text-decoration:none;padding:.5rem .7rem;border-radius:9px;font-weight:700;font-size:.92rem}
+.nav a.active, .nav a:hover{background:var(--glass);color:var(--primary)}
+.header-actions{display:flex;gap:.5rem;align-items:center}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.6rem 1rem;border-radius:10px;border:0;cursor:pointer;font-weight:700;transition:var(--transition)}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--text)}
+.btn-primary{background:linear-gradient(90deg,var(--primary),#3b82f6);color:white;box-shadow:0 8px 26px rgba(37,99,235,0.12)}
+
+/* Pages & layout */
+.page{display:none;padding:1rem 0 3rem}
+.page.active{display:block}
+.grid{display:grid;gap:1rem}
+.cols-3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--card);border-radius:12px;padding:1rem;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,0.03)}
+.small{font-size:.9rem;color:var(--muted)}
+.right{text-align:right}
+
+/* Hero */
+.hero{display:flex;gap:1rem;align-items:center;flex-direction:column;background:linear-gradient(90deg,rgba(255,255,255,0.02),transparent);padding:1rem;border-radius:12px}
+.hero-top{display:flex;gap:1rem;align-items:center;width:100%;justify-content:space-between}
+
+/* Forms */
+.input, select, textarea{width:100%;padding:.7rem;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--text);outline:none}
+.form-row{display:flex;gap:.6rem}
+.form-row .input{flex:1}
+
+/* Table */
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:.6rem;border-bottom:1px solid rgba(255,255,255,0.02);text-align:left}
+
+/* Chat + FAB */
+.chat-fab{position:fixed;right:1rem;bottom:1rem;background:linear-gradient(180deg,var(--primary),#3b82f6);width:56px;height:56px;border-radius:999px;display:flex;align-items:center;justify-content:center;color:white;box-shadow:0 12px 40px rgba(37,99,235,0.18);cursor:pointer;z-index:60}
+.chat-panel{position:fixed;right:1rem;bottom:5.8rem;width:360px;height:520px;border-radius:12px;background:var(--card);box-shadow:0 12px 40px rgba(2,6,23,0.3);overflow:hidden;display:none;flex-direction:column;z-index:60}
+.chat-panel.active{display:flex}
+
+/* Admin overlay */
+.admin-overlay{position:fixed;inset:0;background:linear-gradient(180deg,rgba(2,6,23,0.6),rgba(2,6,23,0.9));display:none;align-items:center;justify-content:center;z-index:80}
+.admin-overlay.active{display:flex}
+.admin-panel{width:95%;max-width:1100px;height:85vh;background:var(--card);border-radius:12px;display:flex;overflow:hidden}
+
+/* Modals */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:100}
+.modal-backdrop.active{display:flex}
+.modal{width:calc(100% - 40px);max-width:720px;background:var(--card);border-radius:12px;padding:1rem;box-shadow:0 18px 60px rgba(2,6,23,0.6)}
+
+/* Toast */
+.toast{position:fixed;top:1rem;right:1rem;padding:.8rem 1.2rem;border-radius:10px;color:#fff;font-weight:700;z-index:90;transform:translateX(120%);opacity:0;transition:all .25s}
+.toast.show{transform:translateX(0);opacity:1}
+.toast.success{background:var(--accent)} .toast.error{background:var(--danger)} .toast.info{background:var(--primary)}
+
+/* Responsive */
+@media(min-width:880px){
+  .hero{flex-direction:row;padding:1.2rem}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:879px){
+  .nav{display:none}
+  .grid.cols-3{grid-template-columns:1fr}
+  .chat-panel{width:320px;height:420px}
+}
+</style>
+<!-- ========================= END STYLES ========================= -->
+</head>
+<body data-theme="dark" aria-live="polite">
+
+<!-- HEADER -->
+<header class="header" role="banner" aria-label="Main header">
+  <div class="container header-inner">
+    <div style="display:flex;align-items:center;gap:.8rem">
+      <a class="brand" id="brandLogo" aria-label="Open admin access">
+        <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+          <defs><linearGradient id="lg" x1="0" x2="1"><stop offset="0" stop-color="#2563eb"/><stop offset="1" stop-color="#3b82f6"/></linearGradient></defs>
+          <rect width="64" height="64" rx="10" fill="url(#lg)"/>
+          <path d="M18 40c0-11 10-18 14-18s14 7 14 18v8H18v-8z" fill="#fff" opacity="0.08"/>
+        </svg>
+      </a>
+      <div>
+        <div class="brand-title">DeutscheGlobal Bank</div>
+        <div class="small" style="margin-top:2px">Secure • Global • Fast</div>
+      </div>
+    </div>
+
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <a href="#" data-page="home" class="active">Home</a>
+      <a href="#" data-page="accounts">Accounts</a>
+      <a href="#" data-page="invest">Invest</a>
+      <a href="#" data-page="support">Support</a>
+    </nav>
+
+    <div class="header-actions" role="toolbar" aria-label="Header actions">
+      <select id="languageSelect" aria-label="Language" title="Language" style="padding:.45rem;border-radius:8px;background:transparent;color:var(--text);border:1px solid rgba(255,255,255,0.03)">
+        <option value="en">EN</option>
+        <option value="de">DE</option>
+        <option value="fr">FR</option>
+        <option value="es">ES</option>
+        <option value="it">IT</option>
+      </select>
+      <button class="btn btn-ghost" id="themeToggle" aria-pressed="false" title="Toggle theme"><i class="fa fa-moon"></i></button>
+      <button class="btn btn-ghost" data-page="login" id="authBtn">Sign in</button>
+      <button class="btn btn-primary" data-page="register" id="getStarted">Open account</button>
+    </div>
+  </div>
+</header>
+
+<main class="container" role="main">
+
+  <!-- HOME PAGE -->
+  <section id="home" class="page active" aria-labelledby="homeTitle">
+    <div class="hero card" role="region" aria-label="Welcome">
+      <div style="flex:1">
+        <h1 id="homeTitle" style="margin:0;font-size:1.2rem">Banking for a connected world</h1>
+        <p class="small" style="margin-top:.5rem">Manage accounts, transfer funds, apply for loans, and monitor investments — all in one responsive banking app.</p>
+        <div style="margin-top:1rem;display:flex;gap:.6rem;flex-wrap:wrap">
+          <button class="btn btn-primary" id="openDashboard">Go to dashboard</button>
+          <button class="btn btn-ghost" data-page="services">Explore services</button>
+        </div>
+      </div>
+
+      <div style="width:320px;max-width:48%">
+        <div class="card" style="margin-bottom:.8rem">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="small">Total balance</div>
+            <div class="right small">Accounts: <span id="acctCount">0</span></div>
+          </div>
+          <div style="font-weight:800;font-size:1.6rem;margin-top:.6rem">$<span id="totalBalance">0.00</span></div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="small">Exchange rates (USD base)</div>
+            <button class="btn btn-ghost small" id="refreshFx">Refresh</button>
+          </div>
+          <div class="small" id="fxRates" style="margin-top:.6rem">Loading rates...</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:1rem" class="grid cols-3">
+      <div class="card">
+        <h3 style="margin:0">Transfers</h3>
+        <p class="small">Send funds locally or internationally.</p>
+        <label class="small">From</label>
+        <select id="transferFrom" class="input"></select>
+        <label class="small" style="margin-top:.4rem">To (IBAN / Account)</label>
+        <input id="transferTo" class="input" placeholder="Recipient IBAN or account"/>
+        <label class="small" style="margin-top:.4rem">Amount (USD)</label>
+        <input id="transferAmount" type="number" class="input" placeholder="0.00"/>
+        <div style="display:flex;gap:.5rem;margin-top:.6rem">
+          <button class="btn btn-primary" id="sendTransfer">Send</button>
+          <button class="btn btn-ghost" id="queueTransfer">Queue for approval</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0">Investments</h3>
+        <p class="small">Manage your portfolio and view tickers.</p>
+        <div style="margin-top:.6rem">
+          <div class="small">Portfolio value</div>
+          <div style="font-weight:800">$<span id="portfolioValue">0.00</span></div>
+          <div style="margin-top:.6rem" id="stockTicker" class="small">Loading markets...</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0">Loans</h3>
+        <p class="small">Estimate monthly payments.</p>
+        <label class="small">Amount (USD)</label>
+        <input id="loanAmount" class="input" type="number" />
+        <label class="small" style="margin-top:.4rem">Term (months)</label>
+        <input id="loanTerm" class="input" type="number" value="36"/>
+        <div style="margin-top:.6rem;display:flex;gap:.5rem">
+          <button class="btn btn-primary" id="calcLoan">Calculate</button>
+          <button class="btn btn-ghost" id="applyLoan">Apply</button>
+        </div>
+        <div id="loanResult" class="small" style="margin-top:.6rem">Monthly: -</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCOUNTS PAGE -->
+  <section id="accounts" class="page" aria-labelledby="accountsTitle">
+    <h2 id="accountsTitle">Accounts</h2>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div class="small">Primary account</div>
+          <div style="font-weight:800">$<span id="primaryBalance">0.00</span></div>
+        </div>
+        <div>
+          <button class="btn btn-primary" id="downloadStatement">Download statement</button>
+        </div>
+      </div>
+      <div style="margin-top:.8rem">
+        <h4 class="small">Transaction history</h4>
+        <table class="table" id="txTable">
+          <thead><tr><th>Date</th><th>Description</th><th class="right">Amount</th></tr></thead>
+          <tbody id="txBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVEST PAGE -->
+  <section id="invest" class="page" aria-labelledby="investTitle">
+    <h2 id="investTitle">Investments</h2>
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div class="small">Portfolio overview</div>
+          <div style="font-weight:800">$<span id="pv">0.00</span></div>
+        </div>
+        <div>
+          <button class="btn btn-primary" id="tradeBtn">Trade</button>
+        </div>
+      </div>
+      <div style="margin-top:.8rem" id="portfolioList"></div>
+    </div>
+  </section>
+
+  <!-- SUPPORT PAGE -->
+  <section id="support" class="page" aria-labelledby="supportTitle">
+    <h2 id="supportTitle">Support</h2>
+    <div class="card">
+      <div>
+        <h4 class="small">Contact support</h4>
+        <textarea id="supportMsg" class="input" rows="3" placeholder="Describe your issue..."></textarea>
+        <div style="display:flex;gap:.6rem;margin-top:.6rem">
+          <button class="btn btn-primary" id="sendSupport">Send</button>
+          <button class="btn btn-ghost" id="startCall">Start video call</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTH: LOGIN -->
+  <section id="login" class="page" aria-labelledby="loginTitle">
+    <div class="card" style="max-width:640px;margin:0 auto">
+      <h2 id="loginTitle">Sign in</h2>
+      <form id="loginForm" autocomplete="on">
+        <label class="small">Email</label>
+        <input id="loginEmail" class="input" type="email" required />
+        <label class="small" style="margin-top:.6rem">Password</label>
+        <input id="loginPass" class="input" type="password" required />
+        <div style="display:flex;gap:.6rem;margin-top:.8rem">
+          <button class="btn btn-primary" type="submit">Sign in</button>
+          <button class="btn btn-ghost" type="button" id="forgotPwd">Forgot?</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- AUTH: REGISTER -->
+  <section id="register" class="page" aria-labelledby="registerTitle">
+    <div class="card" style="max-width:640px;margin:0 auto">
+      <h2 id="registerTitle">Open an account</h2>
+      <form id="registerForm" autocomplete="on">
+        <div class="form-row">
+          <input id="regFirst" class="input" placeholder="First name" required />
+          <input id="regLast" class="input" placeholder="Last name" required />
+        </div>
+        <label class="small" style="margin-top:.6rem">Email</label>
+        <input id="regEmail" class="input" type="email" required />
+        <label class="small" style="margin-top:.6rem">Create password</label>
+        <input id="regPass" class="input" type="password" required />
+        <div style="display:flex;gap:.6rem;margin-top:.8rem">
+          <button class="btn btn-primary" type="submit">Create account</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- DASHBOARD (personalized) -->
+  <section id="dashboard" class="page" aria-labelledby="dashboardTitle">
+    <h2 id="dashboardTitle">Dashboard</h2>
+    <div class="grid cols-3">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div><div class="small">Account</div><div style="font-weight:800" id="dashName">—</div></div>
+          <div class="right"><div class="small">Available</div><div style="font-weight:800">$<span id="dashBalance">0.00</span></div></div>
+        </div>
+        <div style="margin-top:.8rem;display:flex;gap:.5rem">
+          <button class="btn btn-primary" id="quickTransfer">Transfer</button>
+          <button class="btn btn-ghost" id="quickInvest">Invest</button>
+        </div>
+      </div>
+      <div class="card">
+        <h4 class="small">Recent transactions</h4>
+        <table class="table"><thead><tr><th>Date</th><th>Description</th><th class="right">Amount</th></tr></thead>
+        <tbody id="recentTx"></tbody></table>
+      </div>
+      <div class="card">
+        <h4 class="small">Analytics</h4>
+        <div class="small">KPIs and charts are available within admin analytics.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:1rem" class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div class="small">Statements & receipts</div>
+        <div style="display:flex;gap:.6rem">
+          <button class="btn btn-ghost" id="exportJson">Export data</button>
+          <button class="btn btn-primary" id="printStatement">Print statement</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Chat floating -->
+<button class="chat-fab" id="chatFab" aria-label="Open support chat"><i class="fa fa-comments"></i></button>
+<div class="chat-panel card" id="chatPanel" role="dialog" aria-hidden="true">
+  <div style="padding:.8rem;background:linear-gradient(90deg,var(--primary),#3b82f6);color:white;display:flex;justify-content:space-between;align-items:center">
+    <div><i class="fa fa-headset"></i> Support</div>
+    <button class="btn btn-ghost" id="closeChat"><i class="fa fa-times"></i></button>
+  </div>
+  <div id="chatLog" style="flex:1;padding:1rem;overflow:auto"></div>
+  <div style="padding:.8rem;display:flex;gap:.6rem">
+    <input id="chatInput" class="input" placeholder="Type your message" aria-label="Chat input"/>
+    <button class="btn btn-primary" id="sendChat">Send</button>
+  </div>
+</div>
+
+<!-- Admin overlay -->
+<div class="admin-overlay" id="adminOverlay" aria-hidden="true">
+  <div class="admin-panel" role="dialog">
+    <div style="width:260px;padding:1rem;border-right:1px solid rgba(255,255,255,0.02);background:linear-gradient(180deg,rgba(37,99,235,0.03),transparent)">
+      <h3>Admin</h3>
+      <div style="display:flex;flex-direction:column;gap:.6rem">
+        <button class="btn btn-ghost" data-admin="overview">Overview</button>
+        <button class="btn btn-ghost" data-admin="users">Users</button>
+        <button class="btn btn-ghost" data-admin="tx">Transactions</button>
+        <button class="btn btn-ghost" id="closeAdmin">Close</button>
+      </div>
+    </div>
+    <div style="flex:1;padding:1rem;overflow:auto" id="adminMain">
+      <h3 id="adminTitle">System Overview</h3>
+      <div id="adminContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal backdrop -->
+<div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" id="modalBox"></div>
+</div>
+
+<!-- Toast area -->
+<div id="toast" class="toast toast.info" role="status" aria-live="polite"></div>
+
+<!-- =========================
+     SCRIPTS (app logic)
+     ========================= -->
+<script>
+/* =========================
+   CONFIG
+   ========================= */
+const CONFIG = {
+  SUPER_ADMIN_PASSWORD: 'admin/admin111',
+  FX_API: 'https://api.exchangerate.host/latest?base=USD&symbols=EUR,GBP,NGN'
+};
+
+/* =========================
+   UTILITIES
+   ========================= */
+const UI = {
+  toastEl: document.getElementById('toast'),
+  showToast(msg, type='info', ms=3500){
+    this.toastEl.textContent = msg;
+    this.toastEl.className = 'toast show ' + (type==='success' ? 'toast success' : type==='error' ? 'toast error' : 'toast info');
+    setTimeout(()=>{ this.toastEl.className = 'toast'; }, ms);
+  },
+  openModal(html){
+    document.getElementById('modalBox').innerHTML = html;
+    document.getElementById('modalBackdrop').classList.add('active');
+    document.getElementById('modalBackdrop').setAttribute('aria-hidden','false');
+  },
+  closeModal(){
+    document.getElementById('modalBackdrop').classList.remove('active');
+    document.getElementById('modalBackdrop').setAttribute('aria-hidden','true');
+    document.getElementById('modalBox').innerHTML = '';
+  }
+};
+
+function fmt(num){ return Number(num||0).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+/* =========================
+   INDEXEDDB: persistence layer
+   =========================
+   Stores:
+     - users
+     - accounts
+     - transactions
+     - loans
+     - investments
+     - auditlogs
+     - settings
+*/
+const DB = (function(){
+  const DBNAME = 'deutscheglobal_v1', VERSION = 1, stores = ['users','accounts','transactions','loans','investments','auditlogs','settings'];
+  let db;
+  function open(){
+    return new Promise((res,rej)=>{
+      const rq = indexedDB.open(DBNAME, VERSION);
+      rq.onupgradeneeded = (e) => {
+        db = e.target.result;
+        for(const s of stores) if(!db.objectStoreNames.contains(s)) db.createObjectStore(s, {keyPath:'id',autoIncrement:true});
+      };
+      rq.onsuccess = ()=>{ db = rq.result; res(db); };
+      rq.onerror = ()=>rej(rq.error);
+    });
+  }
+  async function tx(store, mode='readonly'){ await open(); return db.transaction(store, mode).objectStore(store); }
+  async function add(store, obj){ const s = await tx(store,'readwrite'); return new Promise((res,rej)=>{ const r = s.add(obj); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
+  async function put(store, obj){ const s = await tx(store,'readwrite'); return new Promise((res,rej)=>{ const r = s.put(obj); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
+  async function getAll(store){ const s = await tx(store); return new Promise((res,rej)=>{ const r = s.getAll(); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
+  async function getById(store, id){ const s = await tx(store); return new Promise((res,rej)=>{ const r = s.get(id); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }
+  async function clear(store){ const s = await tx(store,'readwrite'); return new Promise((res,rej)=>{ const r = s.clear(); r.onsuccess=()=>res(); r.onerror=()=>rej(r.error); }); }
+  return { open, add, put, getAll, getById, clear };
+})();
+
+/* =========================
+   AUDIT & ANTI-FRAUD (simple)
+   ========================= */
+const Audit = {
+  async log(type, detail){
+    await DB.add('auditlogs', {type,detail,date:new Date().toISOString()});
+    // Example anti-fraud: flag transfers over 50k
+    if(type==='transaction' && typeof detail === 'object' && Math.abs(detail.amount) > 50000){
+      UI.showToast('High-value transaction flagged for review', 'info');
+    }
+  }
+};
+
+/* =========================
+   BOOTSTRAP: create initial admin user & seed basic settings if not present
+   - Note: passwords are stored base64 here ONLY for client-side simulation.
+   - For production, move auth to server and use secure hashing (bcrypt/argon2).
+*/
+(async function bootstrap(){
+  try{
+    await DB.open();
+    const users
